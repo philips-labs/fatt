@@ -25,11 +25,16 @@ func New() *cobra.Command {
 		Short: "Fetches an attestation",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			fmt.Println("Fetching attestations for current working directory…")
-			d, err := os.Getwd()
-			if err != nil {
-				return err
+
+			if ro.FilePath == "" {
+				d, err := os.Getwd()
+				if err != nil {
+					return err
+				}
+				ro.FilePath = d
 			}
-			atts, err := resolver.Resolve(d)
+
+			atts, err := resolver.Resolve(ro.FilePath)
 			if err != nil {
 				return fmt.Errorf("failed to resolve attestations: %w", err)
 			}
