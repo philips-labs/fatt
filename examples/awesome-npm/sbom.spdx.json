@@ -1,0 +1,1389 @@
+{
+ "SPDXID": "SPDXRef-DOCUMENT",
+ "name": "ghcr.io/philips-labs/slsa-provenance-v0.7.2",
+ "spdxVersion": "SPDX-2.2",
+ "creationInfo": {
+  "created": "2022-02-25T13:01:35.3837117Z",
+  "creators": [
+   "Organization: Anchore, Inc",
+   "Tool: syft-0.38.0"
+  ],
+  "licenseListVersion": "3.16"
+ },
+ "dataLicense": "CC0-1.0",
+ "documentNamespace": "https://anchore.com/syft/image/ghcr.io/philips-labs/slsa-provenance-v0.7.2-7700ea90-7cbe-4c9e-8199-85809fc16573",
+ "packages": [
+  {
+   "SPDXID": "SPDXRef-f375194f01d7c0f6",
+   "name": "base-files",
+   "licenseConcluded": "NOASSERTION",
+   "downloadLocation": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "SECURITY",
+     "referenceLocator": "cpe:2.3:a:base-files:base-files:11.1\\+deb11u2:*:*:*:*:*:*:*",
+     "referenceType": "cpe23Type"
+    },
+    {
+     "referenceCategory": "SECURITY",
+     "referenceLocator": "cpe:2.3:a:base-files:base_files:11.1\\+deb11u2:*:*:*:*:*:*:*",
+     "referenceType": "cpe23Type"
+    },
+    {
+     "referenceCategory": "SECURITY",
+     "referenceLocator": "cpe:2.3:a:base_files:base-files:11.1\\+deb11u2:*:*:*:*:*:*:*",
+     "referenceType": "cpe23Type"
+    },
+    {
+     "referenceCategory": "SECURITY",
+     "referenceLocator": "cpe:2.3:a:base_files:base_files:11.1\\+deb11u2:*:*:*:*:*:*:*",
+     "referenceType": "cpe23Type"
+    },
+    {
+     "referenceCategory": "SECURITY",
+     "referenceLocator": "cpe:2.3:a:base:base-files:11.1\\+deb11u2:*:*:*:*:*:*:*",
+     "referenceType": "cpe23Type"
+    },
+    {
+     "referenceCategory": "SECURITY",
+     "referenceLocator": "cpe:2.3:a:base:base_files:11.1\\+deb11u2:*:*:*:*:*:*:*",
+     "referenceType": "cpe23Type"
+    },
+    {
+     "referenceCategory": "PACKAGE_MANAGER",
+     "referenceLocator": "pkg:deb/debian/base-files@11.1+deb11u2?arch=amd64&distro=debian-11",
+     "referenceType": "purl"
+    }
+   ],
+   "filesAnalyzed": false,
+   "licenseDeclared": "NOASSERTION",
+   "originator": "Person: Santiago Vila <sanvila@debian.org>",
+   "sourceInfo": "acquired package info from DPKG DB: /var/lib/dpkg/status.d/base, /usr/share/doc/base-files/copyright",
+   "versionInfo": "11.1+deb11u2"
+  },
+  {
+   "SPDXID": "SPDXRef-31296383dc32c40e",
+   "name": "cloud.google.com/go",
+   "licenseConcluded": "NONE",
+   "downloadLocation": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "PACKAGE_MANAGER",
+     "referenceLocator": "pkg:golang/cloud.google.com/go@v0.99.0",
+     "referenceType": "purl"
+    }
+   ],
+   "filesAnalyzed": false,
+   "licenseDeclared": "NONE",
+   "sourceInfo": "acquired package info from go module information: /usr/local/bin/slsa-provenance",
+   "versionInfo": "v0.99.0"
+  },
+  {
+   "SPDXID": "SPDXRef-8d5b75bffc2f8364",
+   "name": "github.com/Azure/azure-sdk-for-go",
+   "licenseConcluded": "NONE",
+   "downloadLocation": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "SECURITY",
+     "referenceLocator": "cpe:2.3:a:Azure:azure-sdk-for-go:v46.4.0\\+incompatible:*:*:*:*:*:*:*",
+     "referenceType": "cpe23Type"
+    },
+    {
+     "referenceCategory": "SECURITY",
+     "referenceLocator": "cpe:2.3:a:Azure:azure_sdk_for_go:v46.4.0\\+incompatible:*:*:*:*:*:*:*",
+     "referenceType": "cpe23Type"
+    },
+    {
+     "referenceCategory": "PACKAGE_MANAGER",
+     "referenceLocator": "pkg:golang/github.com/Azure/azure-sdk-for-go@v46.4.0+incompatible",
+     "referenceType": "purl"
+    }
+   ],
+   "filesAnalyzed": false,
+   "licenseDeclared": "NONE",
+   "sourceInfo": "acquired package info from go module information: /usr/local/bin/slsa-provenance",
+   "versionInfo": "v46.4.0+incompatible"
+  },
+  {
+   "SPDXID": "SPDXRef-5e0218704f15ee2b",
+   "name": "github.com/Azure/go-autorest/autorest",
+   "licenseConcluded": "NONE",
+   "downloadLocation": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "SECURITY",
+     "referenceLocator": "cpe:2.3:a:Azure:go-autorest:v0.11.8:*:*:*:*:*:*:*",
+     "referenceType": "cpe23Type"
+    },
+    {
+     "referenceCategory": "SECURITY",
+     "referenceLocator": "cpe:2.3:a:Azure:go_autorest:v0.11.8:*:*:*:*:*:*:*",
+     "referenceType": "cpe23Type"
+    },
+    {
+     "referenceCategory": "PACKAGE_MANAGER",
+     "referenceLocator": "pkg:golang/github.com/Azure/go-autorest/autorest@v0.11.8",
+     "referenceType": "purl"
+    }
+   ],
+   "filesAnalyzed": false,
+   "licenseDeclared": "NONE",
+   "sourceInfo": "acquired package info from go module information: /usr/local/bin/slsa-provenance",
+   "versionInfo": "v0.11.8"
+  },
+  {
+   "SPDXID": "SPDXRef-dc19c0e9381229fb",
+   "name": "github.com/Azure/go-autorest/autorest/adal",
+   "licenseConcluded": "NONE",
+   "downloadLocation": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "SECURITY",
+     "referenceLocator": "cpe:2.3:a:Azure:go-autorest:v0.9.5:*:*:*:*:*:*:*",
+     "referenceType": "cpe23Type"
+    },
+    {
+     "referenceCategory": "SECURITY",
+     "referenceLocator": "cpe:2.3:a:Azure:go_autorest:v0.9.5:*:*:*:*:*:*:*",
+     "referenceType": "cpe23Type"
+    },
+    {
+     "referenceCategory": "PACKAGE_MANAGER",
+     "referenceLocator": "pkg:golang/github.com/Azure/go-autorest/autorest/adal@v0.9.5",
+     "referenceType": "purl"
+    }
+   ],
+   "filesAnalyzed": false,
+   "licenseDeclared": "NONE",
+   "sourceInfo": "acquired package info from go module information: /usr/local/bin/slsa-provenance",
+   "versionInfo": "v0.9.5"
+  },
+  {
+   "SPDXID": "SPDXRef-d2bc88d99fdc91cd",
+   "name": "github.com/Azure/go-autorest/autorest/azure/auth",
+   "licenseConcluded": "NONE",
+   "downloadLocation": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "SECURITY",
+     "referenceLocator": "cpe:2.3:a:Azure:go-autorest:v0.5.2:*:*:*:*:*:*:*",
+     "referenceType": "cpe23Type"
+    },
+    {
+     "referenceCategory": "SECURITY",
+     "referenceLocator": "cpe:2.3:a:Azure:go_autorest:v0.5.2:*:*:*:*:*:*:*",
+     "referenceType": "cpe23Type"
+    },
+    {
+     "referenceCategory": "PACKAGE_MANAGER",
+     "referenceLocator": "pkg:golang/github.com/Azure/go-autorest/autorest/azure/auth@v0.5.2",
+     "referenceType": "purl"
+    }
+   ],
+   "filesAnalyzed": false,
+   "licenseDeclared": "NONE",
+   "sourceInfo": "acquired package info from go module information: /usr/local/bin/slsa-provenance",
+   "versionInfo": "v0.5.2"
+  },
+  {
+   "SPDXID": "SPDXRef-86802c3a98fd4f43",
+   "name": "github.com/Azure/go-autorest/autorest/azure/cli",
+   "licenseConcluded": "NONE",
+   "downloadLocation": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "SECURITY",
+     "referenceLocator": "cpe:2.3:a:Azure:go-autorest:v0.4.1:*:*:*:*:*:*:*",
+     "referenceType": "cpe23Type"
+    },
+    {
+     "referenceCategory": "SECURITY",
+     "referenceLocator": "cpe:2.3:a:Azure:go_autorest:v0.4.1:*:*:*:*:*:*:*",
+     "referenceType": "cpe23Type"
+    },
+    {
+     "referenceCategory": "PACKAGE_MANAGER",
+     "referenceLocator": "pkg:golang/github.com/Azure/go-autorest/autorest/azure/cli@v0.4.1",
+     "referenceType": "purl"
+    }
+   ],
+   "filesAnalyzed": false,
+   "licenseDeclared": "NONE",
+   "sourceInfo": "acquired package info from go module information: /usr/local/bin/slsa-provenance",
+   "versionInfo": "v0.4.1"
+  },
+  {
+   "SPDXID": "SPDXRef-31ff3151199824fa",
+   "name": "github.com/Azure/go-autorest/autorest/date",
+   "licenseConcluded": "NONE",
+   "downloadLocation": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "SECURITY",
+     "referenceLocator": "cpe:2.3:a:Azure:go-autorest:v0.3.0:*:*:*:*:*:*:*",
+     "referenceType": "cpe23Type"
+    },
+    {
+     "referenceCategory": "SECURITY",
+     "referenceLocator": "cpe:2.3:a:Azure:go_autorest:v0.3.0:*:*:*:*:*:*:*",
+     "referenceType": "cpe23Type"
+    },
+    {
+     "referenceCategory": "PACKAGE_MANAGER",
+     "referenceLocator": "pkg:golang/github.com/Azure/go-autorest/autorest/date@v0.3.0",
+     "referenceType": "purl"
+    }
+   ],
+   "filesAnalyzed": false,
+   "licenseDeclared": "NONE",
+   "sourceInfo": "acquired package info from go module information: /usr/local/bin/slsa-provenance",
+   "versionInfo": "v0.3.0"
+  },
+  {
+   "SPDXID": "SPDXRef-2c5ec454bb4fe803",
+   "name": "github.com/Azure/go-autorest/logger",
+   "licenseConcluded": "NONE",
+   "downloadLocation": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "SECURITY",
+     "referenceLocator": "cpe:2.3:a:Azure:go-autorest:v0.2.0:*:*:*:*:*:*:*",
+     "referenceType": "cpe23Type"
+    },
+    {
+     "referenceCategory": "SECURITY",
+     "referenceLocator": "cpe:2.3:a:Azure:go_autorest:v0.2.0:*:*:*:*:*:*:*",
+     "referenceType": "cpe23Type"
+    },
+    {
+     "referenceCategory": "PACKAGE_MANAGER",
+     "referenceLocator": "pkg:golang/github.com/Azure/go-autorest/logger@v0.2.0",
+     "referenceType": "purl"
+    }
+   ],
+   "filesAnalyzed": false,
+   "licenseDeclared": "NONE",
+   "sourceInfo": "acquired package info from go module information: /usr/local/bin/slsa-provenance",
+   "versionInfo": "v0.2.0"
+  },
+  {
+   "SPDXID": "SPDXRef-53c8146474834741",
+   "name": "github.com/Azure/go-autorest/tracing",
+   "licenseConcluded": "NONE",
+   "downloadLocation": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "SECURITY",
+     "referenceLocator": "cpe:2.3:a:Azure:go-autorest:v0.6.0:*:*:*:*:*:*:*",
+     "referenceType": "cpe23Type"
+    },
+    {
+     "referenceCategory": "SECURITY",
+     "referenceLocator": "cpe:2.3:a:Azure:go_autorest:v0.6.0:*:*:*:*:*:*:*",
+     "referenceType": "cpe23Type"
+    },
+    {
+     "referenceCategory": "PACKAGE_MANAGER",
+     "referenceLocator": "pkg:golang/github.com/Azure/go-autorest/tracing@v0.6.0",
+     "referenceType": "purl"
+    }
+   ],
+   "filesAnalyzed": false,
+   "licenseDeclared": "NONE",
+   "sourceInfo": "acquired package info from go module information: /usr/local/bin/slsa-provenance",
+   "versionInfo": "v0.6.0"
+  },
+  {
+   "SPDXID": "SPDXRef-ac6102f80581e570",
+   "name": "github.com/aws/aws-sdk-go-v2",
+   "licenseConcluded": "NONE",
+   "downloadLocation": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "SECURITY",
+     "referenceLocator": "cpe:2.3:a:aws:aws-sdk-go-v2:v1.7.1:*:*:*:*:*:*:*",
+     "referenceType": "cpe23Type"
+    },
+    {
+     "referenceCategory": "SECURITY",
+     "referenceLocator": "cpe:2.3:a:aws:aws_sdk_go_v2:v1.7.1:*:*:*:*:*:*:*",
+     "referenceType": "cpe23Type"
+    },
+    {
+     "referenceCategory": "PACKAGE_MANAGER",
+     "referenceLocator": "pkg:golang/github.com/aws/aws-sdk-go-v2@v1.7.1",
+     "referenceType": "purl"
+    }
+   ],
+   "filesAnalyzed": false,
+   "licenseDeclared": "NONE",
+   "sourceInfo": "acquired package info from go module information: /usr/local/bin/slsa-provenance",
+   "versionInfo": "v1.7.1"
+  },
+  {
+   "SPDXID": "SPDXRef-621c495f6066ba33",
+   "name": "github.com/aws/aws-sdk-go-v2/config",
+   "licenseConcluded": "NONE",
+   "downloadLocation": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "SECURITY",
+     "referenceLocator": "cpe:2.3:a:aws:aws-sdk-go-v2:v1.5.0:*:*:*:*:*:*:*",
+     "referenceType": "cpe23Type"
+    },
+    {
+     "referenceCategory": "SECURITY",
+     "referenceLocator": "cpe:2.3:a:aws:aws_sdk_go_v2:v1.5.0:*:*:*:*:*:*:*",
+     "referenceType": "cpe23Type"
+    },
+    {
+     "referenceCategory": "PACKAGE_MANAGER",
+     "referenceLocator": "pkg:golang/github.com/aws/aws-sdk-go-v2/config@v1.5.0",
+     "referenceType": "purl"
+    }
+   ],
+   "filesAnalyzed": false,
+   "licenseDeclared": "NONE",
+   "sourceInfo": "acquired package info from go module information: /usr/local/bin/slsa-provenance",
+   "versionInfo": "v1.5.0"
+  },
+  {
+   "SPDXID": "SPDXRef-df8fb715de79a4bf",
+   "name": "github.com/aws/aws-sdk-go-v2/credentials",
+   "licenseConcluded": "NONE",
+   "downloadLocation": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "SECURITY",
+     "referenceLocator": "cpe:2.3:a:aws:aws-sdk-go-v2:v1.3.1:*:*:*:*:*:*:*",
+     "referenceType": "cpe23Type"
+    },
+    {
+     "referenceCategory": "SECURITY",
+     "referenceLocator": "cpe:2.3:a:aws:aws_sdk_go_v2:v1.3.1:*:*:*:*:*:*:*",
+     "referenceType": "cpe23Type"
+    },
+    {
+     "referenceCategory": "PACKAGE_MANAGER",
+     "referenceLocator": "pkg:golang/github.com/aws/aws-sdk-go-v2/credentials@v1.3.1",
+     "referenceType": "purl"
+    }
+   ],
+   "filesAnalyzed": false,
+   "licenseDeclared": "NONE",
+   "sourceInfo": "acquired package info from go module information: /usr/local/bin/slsa-provenance",
+   "versionInfo": "v1.3.1"
+  },
+  {
+   "SPDXID": "SPDXRef-568f7bf1536d3948",
+   "name": "github.com/aws/aws-sdk-go-v2/feature/ec2/imds",
+   "licenseConcluded": "NONE",
+   "downloadLocation": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "SECURITY",
+     "referenceLocator": "cpe:2.3:a:aws:aws-sdk-go-v2:v1.3.0:*:*:*:*:*:*:*",
+     "referenceType": "cpe23Type"
+    },
+    {
+     "referenceCategory": "SECURITY",
+     "referenceLocator": "cpe:2.3:a:aws:aws_sdk_go_v2:v1.3.0:*:*:*:*:*:*:*",
+     "referenceType": "cpe23Type"
+    },
+    {
+     "referenceCategory": "PACKAGE_MANAGER",
+     "referenceLocator": "pkg:golang/github.com/aws/aws-sdk-go-v2/feature/ec2/imds@v1.3.0",
+     "referenceType": "purl"
+    }
+   ],
+   "filesAnalyzed": false,
+   "licenseDeclared": "NONE",
+   "sourceInfo": "acquired package info from go module information: /usr/local/bin/slsa-provenance",
+   "versionInfo": "v1.3.0"
+  },
+  {
+   "SPDXID": "SPDXRef-a6b5f3b13b41528a",
+   "name": "github.com/aws/aws-sdk-go-v2/internal/ini",
+   "licenseConcluded": "NONE",
+   "downloadLocation": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "SECURITY",
+     "referenceLocator": "cpe:2.3:a:aws:aws-sdk-go-v2:v1.1.1:*:*:*:*:*:*:*",
+     "referenceType": "cpe23Type"
+    },
+    {
+     "referenceCategory": "SECURITY",
+     "referenceLocator": "cpe:2.3:a:aws:aws_sdk_go_v2:v1.1.1:*:*:*:*:*:*:*",
+     "referenceType": "cpe23Type"
+    },
+    {
+     "referenceCategory": "PACKAGE_MANAGER",
+     "referenceLocator": "pkg:golang/github.com/aws/aws-sdk-go-v2/internal/ini@v1.1.1",
+     "referenceType": "purl"
+    }
+   ],
+   "filesAnalyzed": false,
+   "licenseDeclared": "NONE",
+   "sourceInfo": "acquired package info from go module information: /usr/local/bin/slsa-provenance",
+   "versionInfo": "v1.1.1"
+  },
+  {
+   "SPDXID": "SPDXRef-d20a273606936a8d",
+   "name": "github.com/aws/aws-sdk-go-v2/service/ecr",
+   "licenseConcluded": "NONE",
+   "downloadLocation": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "SECURITY",
+     "referenceLocator": "cpe:2.3:a:aws:aws-sdk-go-v2:v1.4.1:*:*:*:*:*:*:*",
+     "referenceType": "cpe23Type"
+    },
+    {
+     "referenceCategory": "SECURITY",
+     "referenceLocator": "cpe:2.3:a:aws:aws_sdk_go_v2:v1.4.1:*:*:*:*:*:*:*",
+     "referenceType": "cpe23Type"
+    },
+    {
+     "referenceCategory": "PACKAGE_MANAGER",
+     "referenceLocator": "pkg:golang/github.com/aws/aws-sdk-go-v2/service/ecr@v1.4.1",
+     "referenceType": "purl"
+    }
+   ],
+   "filesAnalyzed": false,
+   "licenseDeclared": "NONE",
+   "sourceInfo": "acquired package info from go module information: /usr/local/bin/slsa-provenance",
+   "versionInfo": "v1.4.1"
+  },
+  {
+   "SPDXID": "SPDXRef-ef9eac6b82efbaaf",
+   "name": "github.com/aws/aws-sdk-go-v2/service/ecrpublic",
+   "licenseConcluded": "NONE",
+   "downloadLocation": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "SECURITY",
+     "referenceLocator": "cpe:2.3:a:aws:aws-sdk-go-v2:v1.4.1:*:*:*:*:*:*:*",
+     "referenceType": "cpe23Type"
+    },
+    {
+     "referenceCategory": "SECURITY",
+     "referenceLocator": "cpe:2.3:a:aws:aws_sdk_go_v2:v1.4.1:*:*:*:*:*:*:*",
+     "referenceType": "cpe23Type"
+    },
+    {
+     "referenceCategory": "PACKAGE_MANAGER",
+     "referenceLocator": "pkg:golang/github.com/aws/aws-sdk-go-v2/service/ecrpublic@v1.4.1",
+     "referenceType": "purl"
+    }
+   ],
+   "filesAnalyzed": false,
+   "licenseDeclared": "NONE",
+   "sourceInfo": "acquired package info from go module information: /usr/local/bin/slsa-provenance",
+   "versionInfo": "v1.4.1"
+  },
+  {
+   "SPDXID": "SPDXRef-7456bb612449137d",
+   "name": "github.com/aws/aws-sdk-go-v2/service/internal/presigned-url",
+   "licenseConcluded": "NONE",
+   "downloadLocation": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "SECURITY",
+     "referenceLocator": "cpe:2.3:a:aws:aws-sdk-go-v2:v1.2.1:*:*:*:*:*:*:*",
+     "referenceType": "cpe23Type"
+    },
+    {
+     "referenceCategory": "SECURITY",
+     "referenceLocator": "cpe:2.3:a:aws:aws_sdk_go_v2:v1.2.1:*:*:*:*:*:*:*",
+     "referenceType": "cpe23Type"
+    },
+    {
+     "referenceCategory": "PACKAGE_MANAGER",
+     "referenceLocator": "pkg:golang/github.com/aws/aws-sdk-go-v2/service/internal/presigned-url@v1.2.1",
+     "referenceType": "purl"
+    }
+   ],
+   "filesAnalyzed": false,
+   "licenseDeclared": "NONE",
+   "sourceInfo": "acquired package info from go module information: /usr/local/bin/slsa-provenance",
+   "versionInfo": "v1.2.1"
+  },
+  {
+   "SPDXID": "SPDXRef-c5fc3b8ca05a3bcf",
+   "name": "github.com/aws/aws-sdk-go-v2/service/sso",
+   "licenseConcluded": "NONE",
+   "downloadLocation": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "SECURITY",
+     "referenceLocator": "cpe:2.3:a:aws:aws-sdk-go-v2:v1.3.1:*:*:*:*:*:*:*",
+     "referenceType": "cpe23Type"
+    },
+    {
+     "referenceCategory": "SECURITY",
+     "referenceLocator": "cpe:2.3:a:aws:aws_sdk_go_v2:v1.3.1:*:*:*:*:*:*:*",
+     "referenceType": "cpe23Type"
+    },
+    {
+     "referenceCategory": "PACKAGE_MANAGER",
+     "referenceLocator": "pkg:golang/github.com/aws/aws-sdk-go-v2/service/sso@v1.3.1",
+     "referenceType": "purl"
+    }
+   ],
+   "filesAnalyzed": false,
+   "licenseDeclared": "NONE",
+   "sourceInfo": "acquired package info from go module information: /usr/local/bin/slsa-provenance",
+   "versionInfo": "v1.3.1"
+  },
+  {
+   "SPDXID": "SPDXRef-6d76ff4fc80823ff",
+   "name": "github.com/aws/aws-sdk-go-v2/service/sts",
+   "licenseConcluded": "NONE",
+   "downloadLocation": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "SECURITY",
+     "referenceLocator": "cpe:2.3:a:aws:aws-sdk-go-v2:v1.6.0:*:*:*:*:*:*:*",
+     "referenceType": "cpe23Type"
+    },
+    {
+     "referenceCategory": "SECURITY",
+     "referenceLocator": "cpe:2.3:a:aws:aws_sdk_go_v2:v1.6.0:*:*:*:*:*:*:*",
+     "referenceType": "cpe23Type"
+    },
+    {
+     "referenceCategory": "PACKAGE_MANAGER",
+     "referenceLocator": "pkg:golang/github.com/aws/aws-sdk-go-v2/service/sts@v1.6.0",
+     "referenceType": "purl"
+    }
+   ],
+   "filesAnalyzed": false,
+   "licenseDeclared": "NONE",
+   "sourceInfo": "acquired package info from go module information: /usr/local/bin/slsa-provenance",
+   "versionInfo": "v1.6.0"
+  },
+  {
+   "SPDXID": "SPDXRef-6d5e6d6e68b7505d",
+   "name": "github.com/aws/smithy-go",
+   "licenseConcluded": "NONE",
+   "downloadLocation": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "SECURITY",
+     "referenceLocator": "cpe:2.3:a:aws:smithy-go:v1.6.0:*:*:*:*:*:*:*",
+     "referenceType": "cpe23Type"
+    },
+    {
+     "referenceCategory": "SECURITY",
+     "referenceLocator": "cpe:2.3:a:aws:smithy_go:v1.6.0:*:*:*:*:*:*:*",
+     "referenceType": "cpe23Type"
+    },
+    {
+     "referenceCategory": "PACKAGE_MANAGER",
+     "referenceLocator": "pkg:golang/github.com/aws/smithy-go@v1.6.0",
+     "referenceType": "purl"
+    }
+   ],
+   "filesAnalyzed": false,
+   "licenseDeclared": "NONE",
+   "sourceInfo": "acquired package info from go module information: /usr/local/bin/slsa-provenance",
+   "versionInfo": "v1.6.0"
+  },
+  {
+   "SPDXID": "SPDXRef-5bee088507934baa",
+   "name": "github.com/awslabs/amazon-ecr-credential-helper/ecr-login",
+   "licenseConcluded": "NONE",
+   "downloadLocation": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "SECURITY",
+     "referenceLocator": "cpe:2.3:a:awslabs:amazon-ecr-credential-helper:v0.0.0-20211215200129-69c85dc22db6:*:*:*:*:*:*:*",
+     "referenceType": "cpe23Type"
+    },
+    {
+     "referenceCategory": "SECURITY",
+     "referenceLocator": "cpe:2.3:a:awslabs:amazon_ecr_credential_helper:v0.0.0-20211215200129-69c85dc22db6:*:*:*:*:*:*:*",
+     "referenceType": "cpe23Type"
+    },
+    {
+     "referenceCategory": "PACKAGE_MANAGER",
+     "referenceLocator": "pkg:golang/github.com/awslabs/amazon-ecr-credential-helper/ecr-login@v0.0.0-20211215200129-69c85dc22db6",
+     "referenceType": "purl"
+    }
+   ],
+   "filesAnalyzed": false,
+   "licenseDeclared": "NONE",
+   "sourceInfo": "acquired package info from go module information: /usr/local/bin/slsa-provenance",
+   "versionInfo": "v0.0.0-20211215200129-69c85dc22db6"
+  },
+  {
+   "SPDXID": "SPDXRef-9c81f9aa1d53cf03",
+   "name": "github.com/chrismellard/docker-credential-acr-env",
+   "licenseConcluded": "NONE",
+   "downloadLocation": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "SECURITY",
+     "referenceLocator": "cpe:2.3:a:chrismellard:docker-credential-acr-env:v0.0.0-20220119192733-fe33c00cee21:*:*:*:*:*:*:*",
+     "referenceType": "cpe23Type"
+    },
+    {
+     "referenceCategory": "SECURITY",
+     "referenceLocator": "cpe:2.3:a:chrismellard:docker_credential_acr_env:v0.0.0-20220119192733-fe33c00cee21:*:*:*:*:*:*:*",
+     "referenceType": "cpe23Type"
+    },
+    {
+     "referenceCategory": "PACKAGE_MANAGER",
+     "referenceLocator": "pkg:golang/github.com/chrismellard/docker-credential-acr-env@v0.0.0-20220119192733-fe33c00cee21",
+     "referenceType": "purl"
+    }
+   ],
+   "filesAnalyzed": false,
+   "licenseDeclared": "NONE",
+   "sourceInfo": "acquired package info from go module information: /usr/local/bin/slsa-provenance",
+   "versionInfo": "v0.0.0-20220119192733-fe33c00cee21"
+  },
+  {
+   "SPDXID": "SPDXRef-d75effdcd05eddc7",
+   "name": "github.com/containerd/stargz-snapshotter/estargz",
+   "licenseConcluded": "NONE",
+   "downloadLocation": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "SECURITY",
+     "referenceLocator": "cpe:2.3:a:containerd:stargz-snapshotter:v0.10.1:*:*:*:*:*:*:*",
+     "referenceType": "cpe23Type"
+    },
+    {
+     "referenceCategory": "SECURITY",
+     "referenceLocator": "cpe:2.3:a:containerd:stargz_snapshotter:v0.10.1:*:*:*:*:*:*:*",
+     "referenceType": "cpe23Type"
+    },
+    {
+     "referenceCategory": "PACKAGE_MANAGER",
+     "referenceLocator": "pkg:golang/github.com/containerd/stargz-snapshotter/estargz@v0.10.1",
+     "referenceType": "purl"
+    }
+   ],
+   "filesAnalyzed": false,
+   "licenseDeclared": "NONE",
+   "sourceInfo": "acquired package info from go module information: /usr/local/bin/slsa-provenance",
+   "versionInfo": "v0.10.1"
+  },
+  {
+   "SPDXID": "SPDXRef-a3666fc95aba005c",
+   "name": "github.com/dimchansky/utfbom",
+   "licenseConcluded": "NONE",
+   "downloadLocation": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "SECURITY",
+     "referenceLocator": "cpe:2.3:a:dimchansky:utfbom:v1.1.0:*:*:*:*:*:*:*",
+     "referenceType": "cpe23Type"
+    },
+    {
+     "referenceCategory": "PACKAGE_MANAGER",
+     "referenceLocator": "pkg:golang/github.com/dimchansky/utfbom@v1.1.0",
+     "referenceType": "purl"
+    }
+   ],
+   "filesAnalyzed": false,
+   "licenseDeclared": "NONE",
+   "sourceInfo": "acquired package info from go module information: /usr/local/bin/slsa-provenance",
+   "versionInfo": "v1.1.0"
+  },
+  {
+   "SPDXID": "SPDXRef-3775a5aa4959770f",
+   "name": "github.com/docker/cli",
+   "licenseConcluded": "NONE",
+   "downloadLocation": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "SECURITY",
+     "referenceLocator": "cpe:2.3:a:docker:cli:v20.10.12\\+incompatible:*:*:*:*:*:*:*",
+     "referenceType": "cpe23Type"
+    },
+    {
+     "referenceCategory": "PACKAGE_MANAGER",
+     "referenceLocator": "pkg:golang/github.com/docker/cli@v20.10.12+incompatible",
+     "referenceType": "purl"
+    }
+   ],
+   "filesAnalyzed": false,
+   "licenseDeclared": "NONE",
+   "sourceInfo": "acquired package info from go module information: /usr/local/bin/slsa-provenance",
+   "versionInfo": "v20.10.12+incompatible"
+  },
+  {
+   "SPDXID": "SPDXRef-d2a5a87e3c3168b3",
+   "name": "github.com/docker/distribution",
+   "licenseConcluded": "NONE",
+   "downloadLocation": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "SECURITY",
+     "referenceLocator": "cpe:2.3:a:docker:distribution:v2.7.1\\+incompatible:*:*:*:*:*:*:*",
+     "referenceType": "cpe23Type"
+    },
+    {
+     "referenceCategory": "PACKAGE_MANAGER",
+     "referenceLocator": "pkg:golang/github.com/docker/distribution@v2.7.1+incompatible",
+     "referenceType": "purl"
+    }
+   ],
+   "filesAnalyzed": false,
+   "licenseDeclared": "NONE",
+   "sourceInfo": "acquired package info from go module information: /usr/local/bin/slsa-provenance",
+   "versionInfo": "v2.7.1+incompatible"
+  },
+  {
+   "SPDXID": "SPDXRef-9c8534f22713efdd",
+   "name": "github.com/docker/docker",
+   "licenseConcluded": "NONE",
+   "downloadLocation": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "SECURITY",
+     "referenceLocator": "cpe:2.3:a:docker:docker:v20.10.12\\+incompatible:*:*:*:*:*:*:*",
+     "referenceType": "cpe23Type"
+    },
+    {
+     "referenceCategory": "PACKAGE_MANAGER",
+     "referenceLocator": "pkg:golang/github.com/docker/docker@v20.10.12+incompatible",
+     "referenceType": "purl"
+    }
+   ],
+   "filesAnalyzed": false,
+   "licenseDeclared": "NONE",
+   "sourceInfo": "acquired package info from go module information: /usr/local/bin/slsa-provenance",
+   "versionInfo": "v20.10.12+incompatible"
+  },
+  {
+   "SPDXID": "SPDXRef-608bd2e490b890f4",
+   "name": "github.com/docker/docker-credential-helpers",
+   "licenseConcluded": "NONE",
+   "downloadLocation": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "SECURITY",
+     "referenceLocator": "cpe:2.3:a:docker:docker-credential-helpers:v0.6.4:*:*:*:*:*:*:*",
+     "referenceType": "cpe23Type"
+    },
+    {
+     "referenceCategory": "SECURITY",
+     "referenceLocator": "cpe:2.3:a:docker:docker_credential_helpers:v0.6.4:*:*:*:*:*:*:*",
+     "referenceType": "cpe23Type"
+    },
+    {
+     "referenceCategory": "PACKAGE_MANAGER",
+     "referenceLocator": "pkg:golang/github.com/docker/docker-credential-helpers@v0.6.4",
+     "referenceType": "purl"
+    }
+   ],
+   "filesAnalyzed": false,
+   "licenseDeclared": "NONE",
+   "sourceInfo": "acquired package info from go module information: /usr/local/bin/slsa-provenance",
+   "versionInfo": "v0.6.4"
+  },
+  {
+   "SPDXID": "SPDXRef-201543d4d0cbb74b",
+   "name": "github.com/form3tech-oss/jwt-go",
+   "licenseConcluded": "NONE",
+   "downloadLocation": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "SECURITY",
+     "referenceLocator": "cpe:2.3:a:form3tech-oss:jwt-go:v3.2.2\\+incompatible:*:*:*:*:*:*:*",
+     "referenceType": "cpe23Type"
+    },
+    {
+     "referenceCategory": "SECURITY",
+     "referenceLocator": "cpe:2.3:a:form3tech-oss:jwt_go:v3.2.2\\+incompatible:*:*:*:*:*:*:*",
+     "referenceType": "cpe23Type"
+    },
+    {
+     "referenceCategory": "SECURITY",
+     "referenceLocator": "cpe:2.3:a:form3tech_oss:jwt-go:v3.2.2\\+incompatible:*:*:*:*:*:*:*",
+     "referenceType": "cpe23Type"
+    },
+    {
+     "referenceCategory": "SECURITY",
+     "referenceLocator": "cpe:2.3:a:form3tech_oss:jwt_go:v3.2.2\\+incompatible:*:*:*:*:*:*:*",
+     "referenceType": "cpe23Type"
+    },
+    {
+     "referenceCategory": "SECURITY",
+     "referenceLocator": "cpe:2.3:a:form3tech:jwt-go:v3.2.2\\+incompatible:*:*:*:*:*:*:*",
+     "referenceType": "cpe23Type"
+    },
+    {
+     "referenceCategory": "SECURITY",
+     "referenceLocator": "cpe:2.3:a:form3tech:jwt_go:v3.2.2\\+incompatible:*:*:*:*:*:*:*",
+     "referenceType": "cpe23Type"
+    },
+    {
+     "referenceCategory": "PACKAGE_MANAGER",
+     "referenceLocator": "pkg:golang/github.com/form3tech-oss/jwt-go@v3.2.2+incompatible",
+     "referenceType": "purl"
+    }
+   ],
+   "filesAnalyzed": false,
+   "licenseDeclared": "NONE",
+   "sourceInfo": "acquired package info from go module information: /usr/local/bin/slsa-provenance",
+   "versionInfo": "v3.2.2+incompatible"
+  },
+  {
+   "SPDXID": "SPDXRef-573cd0acf4dc513f",
+   "name": "github.com/google/go-containerregistry",
+   "licenseConcluded": "NONE",
+   "downloadLocation": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "SECURITY",
+     "referenceLocator": "cpe:2.3:a:google:go-containerregistry:v0.8.0:*:*:*:*:*:*:*",
+     "referenceType": "cpe23Type"
+    },
+    {
+     "referenceCategory": "SECURITY",
+     "referenceLocator": "cpe:2.3:a:google:go_containerregistry:v0.8.0:*:*:*:*:*:*:*",
+     "referenceType": "cpe23Type"
+    },
+    {
+     "referenceCategory": "PACKAGE_MANAGER",
+     "referenceLocator": "pkg:golang/github.com/google/go-containerregistry@v0.8.0",
+     "referenceType": "purl"
+    }
+   ],
+   "filesAnalyzed": false,
+   "licenseDeclared": "NONE",
+   "sourceInfo": "acquired package info from go module information: /usr/local/bin/slsa-provenance",
+   "versionInfo": "v0.8.0"
+  },
+  {
+   "SPDXID": "SPDXRef-77a48398e981459f",
+   "name": "github.com/google/go-github/v41",
+   "licenseConcluded": "NONE",
+   "downloadLocation": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "SECURITY",
+     "referenceLocator": "cpe:2.3:a:google:go-github:v41.0.0:*:*:*:*:*:*:*",
+     "referenceType": "cpe23Type"
+    },
+    {
+     "referenceCategory": "SECURITY",
+     "referenceLocator": "cpe:2.3:a:google:go_github:v41.0.0:*:*:*:*:*:*:*",
+     "referenceType": "cpe23Type"
+    },
+    {
+     "referenceCategory": "PACKAGE_MANAGER",
+     "referenceLocator": "pkg:golang/github.com/google/go-github/v41@v41.0.0",
+     "referenceType": "purl"
+    }
+   ],
+   "filesAnalyzed": false,
+   "licenseDeclared": "NONE",
+   "sourceInfo": "acquired package info from go module information: /usr/local/bin/slsa-provenance",
+   "versionInfo": "v41.0.0"
+  },
+  {
+   "SPDXID": "SPDXRef-73d11586d4ff8df8",
+   "name": "github.com/google/go-querystring",
+   "licenseConcluded": "NONE",
+   "downloadLocation": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "SECURITY",
+     "referenceLocator": "cpe:2.3:a:google:go-querystring:v1.1.0:*:*:*:*:*:*:*",
+     "referenceType": "cpe23Type"
+    },
+    {
+     "referenceCategory": "SECURITY",
+     "referenceLocator": "cpe:2.3:a:google:go_querystring:v1.1.0:*:*:*:*:*:*:*",
+     "referenceType": "cpe23Type"
+    },
+    {
+     "referenceCategory": "PACKAGE_MANAGER",
+     "referenceLocator": "pkg:golang/github.com/google/go-querystring@v1.1.0",
+     "referenceType": "purl"
+    }
+   ],
+   "filesAnalyzed": false,
+   "licenseDeclared": "NONE",
+   "sourceInfo": "acquired package info from go module information: /usr/local/bin/slsa-provenance",
+   "versionInfo": "v1.1.0"
+  },
+  {
+   "SPDXID": "SPDXRef-c43c9cfe1ad91e8c",
+   "name": "github.com/jmespath/go-jmespath",
+   "licenseConcluded": "NONE",
+   "downloadLocation": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "SECURITY",
+     "referenceLocator": "cpe:2.3:a:jmespath:go-jmespath:v0.4.0:*:*:*:*:*:*:*",
+     "referenceType": "cpe23Type"
+    },
+    {
+     "referenceCategory": "SECURITY",
+     "referenceLocator": "cpe:2.3:a:jmespath:go_jmespath:v0.4.0:*:*:*:*:*:*:*",
+     "referenceType": "cpe23Type"
+    },
+    {
+     "referenceCategory": "PACKAGE_MANAGER",
+     "referenceLocator": "pkg:golang/github.com/jmespath/go-jmespath@v0.4.0",
+     "referenceType": "purl"
+    }
+   ],
+   "filesAnalyzed": false,
+   "licenseDeclared": "NONE",
+   "sourceInfo": "acquired package info from go module information: /usr/local/bin/slsa-provenance",
+   "versionInfo": "v0.4.0"
+  },
+  {
+   "SPDXID": "SPDXRef-ec8e2f55df5b6b8",
+   "name": "github.com/klauspost/compress",
+   "licenseConcluded": "NONE",
+   "downloadLocation": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "SECURITY",
+     "referenceLocator": "cpe:2.3:a:klauspost:compress:v1.13.6:*:*:*:*:*:*:*",
+     "referenceType": "cpe23Type"
+    },
+    {
+     "referenceCategory": "PACKAGE_MANAGER",
+     "referenceLocator": "pkg:golang/github.com/klauspost/compress@v1.13.6",
+     "referenceType": "purl"
+    }
+   ],
+   "filesAnalyzed": false,
+   "licenseDeclared": "NONE",
+   "sourceInfo": "acquired package info from go module information: /usr/local/bin/slsa-provenance",
+   "versionInfo": "v1.13.6"
+  },
+  {
+   "SPDXID": "SPDXRef-819f6ee17e8c4aed",
+   "name": "github.com/mitchellh/go-homedir",
+   "licenseConcluded": "NONE",
+   "downloadLocation": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "SECURITY",
+     "referenceLocator": "cpe:2.3:a:mitchellh:go-homedir:v1.1.0:*:*:*:*:*:*:*",
+     "referenceType": "cpe23Type"
+    },
+    {
+     "referenceCategory": "SECURITY",
+     "referenceLocator": "cpe:2.3:a:mitchellh:go_homedir:v1.1.0:*:*:*:*:*:*:*",
+     "referenceType": "cpe23Type"
+    },
+    {
+     "referenceCategory": "PACKAGE_MANAGER",
+     "referenceLocator": "pkg:golang/github.com/mitchellh/go-homedir@v1.1.0",
+     "referenceType": "purl"
+    }
+   ],
+   "filesAnalyzed": false,
+   "licenseDeclared": "NONE",
+   "sourceInfo": "acquired package info from go module information: /usr/local/bin/slsa-provenance",
+   "versionInfo": "v1.1.0"
+  },
+  {
+   "SPDXID": "SPDXRef-1d8941444fcf2052",
+   "name": "github.com/opencontainers/go-digest",
+   "licenseConcluded": "NONE",
+   "downloadLocation": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "SECURITY",
+     "referenceLocator": "cpe:2.3:a:opencontainers:go-digest:v1.0.0:*:*:*:*:*:*:*",
+     "referenceType": "cpe23Type"
+    },
+    {
+     "referenceCategory": "SECURITY",
+     "referenceLocator": "cpe:2.3:a:opencontainers:go_digest:v1.0.0:*:*:*:*:*:*:*",
+     "referenceType": "cpe23Type"
+    },
+    {
+     "referenceCategory": "PACKAGE_MANAGER",
+     "referenceLocator": "pkg:golang/github.com/opencontainers/go-digest@v1.0.0",
+     "referenceType": "purl"
+    }
+   ],
+   "filesAnalyzed": false,
+   "licenseDeclared": "NONE",
+   "sourceInfo": "acquired package info from go module information: /usr/local/bin/slsa-provenance",
+   "versionInfo": "v1.0.0"
+  },
+  {
+   "SPDXID": "SPDXRef-6024c5594e6c2db6",
+   "name": "github.com/opencontainers/image-spec",
+   "licenseConcluded": "NONE",
+   "downloadLocation": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "SECURITY",
+     "referenceLocator": "cpe:2.3:a:opencontainers:image-spec:v1.0.2-0.20211117181255-693428a734f5:*:*:*:*:*:*:*",
+     "referenceType": "cpe23Type"
+    },
+    {
+     "referenceCategory": "SECURITY",
+     "referenceLocator": "cpe:2.3:a:opencontainers:image_spec:v1.0.2-0.20211117181255-693428a734f5:*:*:*:*:*:*:*",
+     "referenceType": "cpe23Type"
+    },
+    {
+     "referenceCategory": "PACKAGE_MANAGER",
+     "referenceLocator": "pkg:golang/github.com/opencontainers/image-spec@v1.0.2-0.20211117181255-693428a734f5",
+     "referenceType": "purl"
+    }
+   ],
+   "filesAnalyzed": false,
+   "licenseDeclared": "NONE",
+   "sourceInfo": "acquired package info from go module information: /usr/local/bin/slsa-provenance",
+   "versionInfo": "v1.0.2-0.20211117181255-693428a734f5"
+  },
+  {
+   "SPDXID": "SPDXRef-30a7ded3931d0f72",
+   "name": "github.com/pkg/errors",
+   "licenseConcluded": "NONE",
+   "downloadLocation": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "SECURITY",
+     "referenceLocator": "cpe:2.3:a:pkg:errors:v0.9.1:*:*:*:*:*:*:*",
+     "referenceType": "cpe23Type"
+    },
+    {
+     "referenceCategory": "PACKAGE_MANAGER",
+     "referenceLocator": "pkg:golang/github.com/pkg/errors@v0.9.1",
+     "referenceType": "purl"
+    }
+   ],
+   "filesAnalyzed": false,
+   "licenseDeclared": "NONE",
+   "sourceInfo": "acquired package info from go module information: /usr/local/bin/slsa-provenance",
+   "versionInfo": "v0.9.1"
+  },
+  {
+   "SPDXID": "SPDXRef-bd495b316c3eb083",
+   "name": "github.com/sirupsen/logrus",
+   "licenseConcluded": "NONE",
+   "downloadLocation": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "SECURITY",
+     "referenceLocator": "cpe:2.3:a:sirupsen:logrus:v1.8.1:*:*:*:*:*:*:*",
+     "referenceType": "cpe23Type"
+    },
+    {
+     "referenceCategory": "PACKAGE_MANAGER",
+     "referenceLocator": "pkg:golang/github.com/sirupsen/logrus@v1.8.1",
+     "referenceType": "purl"
+    }
+   ],
+   "filesAnalyzed": false,
+   "licenseDeclared": "NONE",
+   "sourceInfo": "acquired package info from go module information: /usr/local/bin/slsa-provenance",
+   "versionInfo": "v1.8.1"
+  },
+  {
+   "SPDXID": "SPDXRef-608a643360982c0d",
+   "name": "github.com/spf13/cobra",
+   "licenseConcluded": "NONE",
+   "downloadLocation": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "SECURITY",
+     "referenceLocator": "cpe:2.3:a:spf13:cobra:v1.3.0:*:*:*:*:*:*:*",
+     "referenceType": "cpe23Type"
+    },
+    {
+     "referenceCategory": "PACKAGE_MANAGER",
+     "referenceLocator": "pkg:golang/github.com/spf13/cobra@v1.3.0",
+     "referenceType": "purl"
+    }
+   ],
+   "filesAnalyzed": false,
+   "licenseDeclared": "NONE",
+   "sourceInfo": "acquired package info from go module information: /usr/local/bin/slsa-provenance",
+   "versionInfo": "v1.3.0"
+  },
+  {
+   "SPDXID": "SPDXRef-75d4157d7f6f61b6",
+   "name": "github.com/spf13/pflag",
+   "licenseConcluded": "NONE",
+   "downloadLocation": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "SECURITY",
+     "referenceLocator": "cpe:2.3:a:spf13:pflag:v1.0.5:*:*:*:*:*:*:*",
+     "referenceType": "cpe23Type"
+    },
+    {
+     "referenceCategory": "PACKAGE_MANAGER",
+     "referenceLocator": "pkg:golang/github.com/spf13/pflag@v1.0.5",
+     "referenceType": "purl"
+    }
+   ],
+   "filesAnalyzed": false,
+   "licenseDeclared": "NONE",
+   "sourceInfo": "acquired package info from go module information: /usr/local/bin/slsa-provenance",
+   "versionInfo": "v1.0.5"
+  },
+  {
+   "SPDXID": "SPDXRef-3a8a7859d37a87f5",
+   "name": "github.com/vbatts/tar-split",
+   "licenseConcluded": "NONE",
+   "downloadLocation": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "SECURITY",
+     "referenceLocator": "cpe:2.3:a:vbatts:tar-split:v0.11.2:*:*:*:*:*:*:*",
+     "referenceType": "cpe23Type"
+    },
+    {
+     "referenceCategory": "SECURITY",
+     "referenceLocator": "cpe:2.3:a:vbatts:tar_split:v0.11.2:*:*:*:*:*:*:*",
+     "referenceType": "cpe23Type"
+    },
+    {
+     "referenceCategory": "PACKAGE_MANAGER",
+     "referenceLocator": "pkg:golang/github.com/vbatts/tar-split@v0.11.2",
+     "referenceType": "purl"
+    }
+   ],
+   "filesAnalyzed": false,
+   "licenseDeclared": "NONE",
+   "sourceInfo": "acquired package info from go module information: /usr/local/bin/slsa-provenance",
+   "versionInfo": "v0.11.2"
+  },
+  {
+   "SPDXID": "SPDXRef-bfe48c328e31a8e5",
+   "name": "golang.org/x/crypto",
+   "licenseConcluded": "NONE",
+   "downloadLocation": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "SECURITY",
+     "referenceLocator": "cpe:2.3:a:golang:x\\/crypto:v0.0.0-20211108221036-ceb1ce70b4fa:*:*:*:*:*:*:*",
+     "referenceType": "cpe23Type"
+    },
+    {
+     "referenceCategory": "PACKAGE_MANAGER",
+     "referenceLocator": "pkg:golang/golang.org/x/crypto@v0.0.0-20211108221036-ceb1ce70b4fa",
+     "referenceType": "purl"
+    }
+   ],
+   "filesAnalyzed": false,
+   "licenseDeclared": "NONE",
+   "sourceInfo": "acquired package info from go module information: /usr/local/bin/slsa-provenance",
+   "versionInfo": "v0.0.0-20211108221036-ceb1ce70b4fa"
+  },
+  {
+   "SPDXID": "SPDXRef-39b06efb3773f569",
+   "name": "golang.org/x/net",
+   "licenseConcluded": "NONE",
+   "downloadLocation": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "SECURITY",
+     "referenceLocator": "cpe:2.3:a:golang:x\\/net:v0.0.0-20211216030914-fe4d6282115f:*:*:*:*:*:*:*",
+     "referenceType": "cpe23Type"
+    },
+    {
+     "referenceCategory": "PACKAGE_MANAGER",
+     "referenceLocator": "pkg:golang/golang.org/x/net@v0.0.0-20211216030914-fe4d6282115f",
+     "referenceType": "purl"
+    }
+   ],
+   "filesAnalyzed": false,
+   "licenseDeclared": "NONE",
+   "sourceInfo": "acquired package info from go module information: /usr/local/bin/slsa-provenance",
+   "versionInfo": "v0.0.0-20211216030914-fe4d6282115f"
+  },
+  {
+   "SPDXID": "SPDXRef-1483411a77da5bd6",
+   "name": "golang.org/x/oauth2",
+   "licenseConcluded": "NONE",
+   "downloadLocation": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "SECURITY",
+     "referenceLocator": "cpe:2.3:a:golang:x\\/oauth2:v0.0.0-20211104180415-d3ed0bb246c8:*:*:*:*:*:*:*",
+     "referenceType": "cpe23Type"
+    },
+    {
+     "referenceCategory": "PACKAGE_MANAGER",
+     "referenceLocator": "pkg:golang/golang.org/x/oauth2@v0.0.0-20211104180415-d3ed0bb246c8",
+     "referenceType": "purl"
+    }
+   ],
+   "filesAnalyzed": false,
+   "licenseDeclared": "NONE",
+   "sourceInfo": "acquired package info from go module information: /usr/local/bin/slsa-provenance",
+   "versionInfo": "v0.0.0-20211104180415-d3ed0bb246c8"
+  },
+  {
+   "SPDXID": "SPDXRef-d9b7fde911cab30c",
+   "name": "golang.org/x/sync",
+   "licenseConcluded": "NONE",
+   "downloadLocation": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "SECURITY",
+     "referenceLocator": "cpe:2.3:a:golang:x\\/sync:v0.0.0-20210220032951-036812b2e83c:*:*:*:*:*:*:*",
+     "referenceType": "cpe23Type"
+    },
+    {
+     "referenceCategory": "PACKAGE_MANAGER",
+     "referenceLocator": "pkg:golang/golang.org/x/sync@v0.0.0-20210220032951-036812b2e83c",
+     "referenceType": "purl"
+    }
+   ],
+   "filesAnalyzed": false,
+   "licenseDeclared": "NONE",
+   "sourceInfo": "acquired package info from go module information: /usr/local/bin/slsa-provenance",
+   "versionInfo": "v0.0.0-20210220032951-036812b2e83c"
+  },
+  {
+   "SPDXID": "SPDXRef-91a8430b53a2e274",
+   "name": "golang.org/x/sys",
+   "licenseConcluded": "NONE",
+   "downloadLocation": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "SECURITY",
+     "referenceLocator": "cpe:2.3:a:golang:x\\/sys:v0.0.0-20211216021012-1d35b9e2eb4e:*:*:*:*:*:*:*",
+     "referenceType": "cpe23Type"
+    },
+    {
+     "referenceCategory": "PACKAGE_MANAGER",
+     "referenceLocator": "pkg:golang/golang.org/x/sys@v0.0.0-20211216021012-1d35b9e2eb4e",
+     "referenceType": "purl"
+    }
+   ],
+   "filesAnalyzed": false,
+   "licenseDeclared": "NONE",
+   "sourceInfo": "acquired package info from go module information: /usr/local/bin/slsa-provenance",
+   "versionInfo": "v0.0.0-20211216021012-1d35b9e2eb4e"
+  },
+  {
+   "SPDXID": "SPDXRef-673b1b3d31ec0155",
+   "name": "libc6",
+   "licenseConcluded": "GPL-2.0 AND LGPL-2.1",
+   "downloadLocation": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "SECURITY",
+     "referenceLocator": "cpe:2.3:a:libc6:libc6:2.31-13\\+deb11u2:*:*:*:*:*:*:*",
+     "referenceType": "cpe23Type"
+    },
+    {
+     "referenceCategory": "PACKAGE_MANAGER",
+     "referenceLocator": "pkg:deb/debian/libc6@2.31-13+deb11u2?arch=amd64&upstream=glibc&distro=debian-11",
+     "referenceType": "purl"
+    }
+   ],
+   "filesAnalyzed": false,
+   "licenseDeclared": "GPL-2.0 AND LGPL-2.1",
+   "originator": "Person: GNU Libc Maintainers <debian-glibc@lists.debian.org>",
+   "sourceInfo": "acquired package info from DPKG DB: /var/lib/dpkg/status.d/libc6, /usr/share/doc/libc6/copyright",
+   "versionInfo": "2.31-13+deb11u2"
+  },
+  {
+   "SPDXID": "SPDXRef-d53793a14132c3a6",
+   "name": "libssl1.1",
+   "licenseConcluded": "NONE",
+   "downloadLocation": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "SECURITY",
+     "referenceLocator": "cpe:2.3:a:libssl1.1:libssl1.1:1.1.1k-1\\+deb11u1:*:*:*:*:*:*:*",
+     "referenceType": "cpe23Type"
+    },
+    {
+     "referenceCategory": "PACKAGE_MANAGER",
+     "referenceLocator": "pkg:deb/debian/libssl1.1@1.1.1k-1+deb11u1?arch=amd64&upstream=openssl&distro=debian-11",
+     "referenceType": "purl"
+    }
+   ],
+   "filesAnalyzed": false,
+   "licenseDeclared": "NONE",
+   "originator": "Person: Debian OpenSSL Team <pkg-openssl-devel@lists.alioth.debian.org>",
+   "sourceInfo": "acquired package info from DPKG DB: /var/lib/dpkg/status.d/libssl1, /usr/share/doc/libssl1.1/copyright",
+   "versionInfo": "1.1.1k-1+deb11u1"
+  },
+  {
+   "SPDXID": "SPDXRef-9858e5f387922da8",
+   "name": "netbase",
+   "licenseConcluded": "GPL-2.0",
+   "downloadLocation": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "SECURITY",
+     "referenceLocator": "cpe:2.3:a:netbase:netbase:6.3:*:*:*:*:*:*:*",
+     "referenceType": "cpe23Type"
+    },
+    {
+     "referenceCategory": "PACKAGE_MANAGER",
+     "referenceLocator": "pkg:deb/debian/netbase@6.3?arch=all&distro=debian-11",
+     "referenceType": "purl"
+    }
+   ],
+   "filesAnalyzed": false,
+   "licenseDeclared": "GPL-2.0",
+   "originator": "Person: Marco d'Itri <md@linux.it>",
+   "sourceInfo": "acquired package info from DPKG DB: /var/lib/dpkg/status.d/netbase, /usr/share/doc/netbase/copyright",
+   "versionInfo": "6.3"
+  },
+  {
+   "SPDXID": "SPDXRef-2ca3c01e4ad2da68",
+   "name": "openssl",
+   "licenseConcluded": "NONE",
+   "downloadLocation": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "SECURITY",
+     "referenceLocator": "cpe:2.3:a:openssl:openssl:1.1.1k-1\\+deb11u1:*:*:*:*:*:*:*",
+     "referenceType": "cpe23Type"
+    },
+    {
+     "referenceCategory": "PACKAGE_MANAGER",
+     "referenceLocator": "pkg:deb/debian/openssl@1.1.1k-1+deb11u1?arch=amd64&distro=debian-11",
+     "referenceType": "purl"
+    }
+   ],
+   "filesAnalyzed": false,
+   "licenseDeclared": "NONE",
+   "originator": "Person: Debian OpenSSL Team <pkg-openssl-devel@lists.alioth.debian.org>",
+   "sourceInfo": "acquired package info from DPKG DB: /var/lib/dpkg/status.d/openssl, /usr/share/doc/openssl/copyright",
+   "versionInfo": "1.1.1k-1+deb11u1"
+  },
+  {
+   "SPDXID": "SPDXRef-87554da03d6f4708",
+   "name": "tzdata",
+   "licenseConcluded": "NONE",
+   "downloadLocation": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "SECURITY",
+     "referenceLocator": "cpe:2.3:a:tzdata:tzdata:2021a-1\\+deb11u2:*:*:*:*:*:*:*",
+     "referenceType": "cpe23Type"
+    },
+    {
+     "referenceCategory": "PACKAGE_MANAGER",
+     "referenceLocator": "pkg:deb/debian/tzdata@2021a-1+deb11u2?arch=all&distro=debian-11",
+     "referenceType": "purl"
+    }
+   ],
+   "filesAnalyzed": false,
+   "licenseDeclared": "NONE",
+   "originator": "Person: GNU Libc Maintainers <debian-glibc@lists.debian.org>",
+   "sourceInfo": "acquired package info from DPKG DB: /var/lib/dpkg/status.d/tzdata, /usr/share/doc/tzdata/copyright",
+   "versionInfo": "2021a-1+deb11u2"
+  }
+ ]
+}
