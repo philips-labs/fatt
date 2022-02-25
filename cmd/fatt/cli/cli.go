@@ -24,7 +24,7 @@ func New() *cobra.Command {
 		Use:   cliName,
 		Short: "Fetches an attestation",
 		RunE: func(cmd *cobra.Command, args []string) error {
-			fmt.Println("Fetching attestations for current working directory…")
+			fmt.Fprintln(os.Stderr, "Fetching attestations for current working directory…")
 
 			if ro.FilePath == "" {
 				d, err := os.Getwd()
@@ -40,7 +40,7 @@ func New() *cobra.Command {
 			}
 
 			for _, att := range atts {
-				fmt.Println(att)
+				fmt.Fprintf(os.Stdout, "%+v\n", att)
 			}
 
 			return nil
