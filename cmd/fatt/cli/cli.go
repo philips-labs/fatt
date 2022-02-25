@@ -7,6 +7,7 @@ import (
 	"github.com/spf13/cobra"
 
 	"github.com/philips-labs/fatt/cmd/fatt/cli/options"
+	"github.com/philips-labs/fatt/pkg/oci"
 	"github.com/philips-labs/fatt/pkg/resolver"
 )
 
@@ -40,7 +41,14 @@ func New() *cobra.Command {
 			}
 
 			for _, att := range atts {
-				fmt.Fprintf(os.Stdout, "%+v\n", att)
+				fmt.Fprintf(os.Stderr, "Attestation found: %+v\n", att)
+				purl := att.PURL
+				switch att.PURL.Type {
+				case "docker":
+					fmt.Fprintln(os.Stdout, oci.ImageURLFromPURL(purl))
+				default:
+					fmt.Fprintln(os.Stderr, "Unsupported purl type")
+				}
 			}
 
 			return nil
