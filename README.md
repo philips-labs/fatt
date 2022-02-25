@@ -12,7 +12,7 @@ Fatt is a small commandline utility that allows you to fetch attestations for yo
 
 #### SBOM
 
-To fetch an SBOM you can define an `sbom` field in `package.json` that defines using a [purl][] where the SBOM can be fetched from.
+To fetch an SBOM you can define a [purl][] with `attestation_type`=`sbom` qualifier in `package.json` within a attestations array.
 
 <details>
   <summary>Example cosign stored sbom</summary>
@@ -30,7 +30,9 @@ To fetch an SBOM you can define an `sbom` field in `package.json` that defines u
   ```json
   {
     "name": "@philips-labs/awesome-npm",
-    "sbom": "pkg:docker/philips-labs/fatt@sha256:6cc65b2c82c2baa3391890abb8ab741efbcbc87baff3b06d5797afacb314ddd9?repository_url=ghcr.io",
+    "attestations": [
+      "pkg:docker/philips-labs/fatt@sha256:6cc65b2c82c2baa3391890abb8ab741efbcbc87baff3b06d5797afacb314ddd9?repository_url=ghcr.io&attestation_type=sbom",
+    ]
   }
   ```
 
@@ -45,8 +47,8 @@ To fetch an SBOM you can define an `sbom` field in `package.json` that defines u
     "creationInfo": {
       "created": "2022-02-25T13:01:35.3837117Z",
       "creators": [
-      "Organization: Anchore, Inc",
-      "Tool: syft-0.38.0"
+        "Organization: Anchore, Inc",
+        "Tool: syft-0.38.0"
       ],
       "licenseListVersion": "3.16"
     },

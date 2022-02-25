@@ -11,8 +11,8 @@ import (
 )
 
 type PackageJSON struct {
-	Name string `json:"name,omitempty"`
-	SBOM string `json:"sbom,omitempty"`
+	Name         string   `json:"name,omitempty"`
+	Attestations []string `json:"attestations,omitempty"`
 }
 
 // Resolve resolves attestations from the given dir
@@ -41,8 +41,8 @@ func Resolve(dir string) ([]attestation.Attestation, error) {
 				return err
 			}
 
-			if pJSON.SBOM != "" {
-				purl, err := packageurl.FromString(pJSON.SBOM)
+			for _, p := range pJSON.Attestations {
+				purl, err := packageurl.FromString(p)
 				if err != nil {
 					return err
 				}

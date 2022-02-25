@@ -40,9 +40,12 @@ func New() *cobra.Command {
 				return fmt.Errorf("failed to resolve attestations: %w", err)
 			}
 
+			fmt.Fprintf(os.Stderr, "Found attestations: %+v\n", atts)
 			for _, att := range atts {
-				fmt.Fprintf(os.Stderr, "Attestation found: %+v\n", att)
 				purl := att.PURL
+				if attType, ok := purl.Qualifiers.Map()["attestation_type"]; ok {
+					fmt.Fprintf(os.Stderr, "Attestation type: %s\n", attType)
+				}
 				switch att.PURL.Type {
 				case "docker":
 					fmt.Fprintln(os.Stdout, oci.ImageURLFromPURL(purl))
