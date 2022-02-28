@@ -3,11 +3,14 @@ package cli
 import (
 	"fmt"
 	"os"
+	"strings"
 
 	"github.com/spf13/cobra"
 
 	"github.com/philips-labs/fatt/cmd/fatt/cli/options"
+	"github.com/philips-labs/fatt/pkg/attestation"
 	"github.com/philips-labs/fatt/pkg/attestation/resolvers/packagejson"
+	"github.com/philips-labs/fatt/pkg/attestation/resolvers/txt"
 	"github.com/philips-labs/fatt/pkg/oci"
 )
 
@@ -35,7 +38,16 @@ func New() *cobra.Command {
 				ro.FilePath = d
 			}
 
-			r := packagejson.Resolver{}
+			var r attestation.Resolver
+			switch strings.ToLower(ro.Resolver) {
+			case "txt":
+				r = &txt.Resolver{}
+			case "packagejson":
+				r = &packagejson.Resolver{}
+			default:
+				fmt.Fprintln(os.Stderr, "unsupported resolver, supported resolvers are `txt` and `packagejson`.")
+			}
+
 			atts, err := r.Resolve(ro.FilePath)
 			if err != nil {
 				return fmt.Errorf("failed to resolve attestations: %w", err)
