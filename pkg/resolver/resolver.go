@@ -7,9 +7,11 @@ import (
 	"path/filepath"
 
 	"github.com/package-url/packageurl-go"
+
 	"github.com/philips-labs/fatt/pkg/attestation"
 )
 
+// PackageJSON structure to retrieve attestations from a package.json
 type PackageJSON struct {
 	Name         string   `json:"name,omitempty"`
 	Attestations []string `json:"attestations,omitempty"`

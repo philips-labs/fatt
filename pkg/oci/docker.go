@@ -7,6 +7,7 @@ import (
 	"github.com/package-url/packageurl-go"
 )
 
+// ImageURLFromPURL converts the PURL to a oci url that can be used to pull the image
 func ImageURLFromPURL(purl packageurl.PackageURL) string {
 	ns := purl.Namespace
 	v := purl.Version
