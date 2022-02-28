@@ -11,22 +11,17 @@ import (
 	"github.com/philips-labs/fatt/pkg/attestation"
 	"github.com/philips-labs/fatt/pkg/attestation/resolvers/packagejson"
 	"github.com/philips-labs/fatt/pkg/attestation/resolvers/txt"
-	"github.com/philips-labs/fatt/pkg/oci"
-)
-
-const (
-	cliName = "fatt"
 )
 
 var (
-	ro = &options.RootOptions{}
+	lo = &options.ListOptions{}
 )
 
-// New create a new instance of the fatt commandline interface
-func New() *cobra.Command {
+// NewListCommand creates a new instance of a list command
+func NewListCommand() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   cliName,
-		Short: "Fetches an attestation",
+		Use:   "list",
+		Short: "Lists all attestations",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			fmt.Fprintln(os.Stderr, "Fetching attestations for current working directory…")
 
@@ -58,27 +53,12 @@ func New() *cobra.Command {
 				return fmt.Errorf("failed to resolve attestations: %w", err)
 			}
 
-			fmt.Fprintf(os.Stderr, "Found attestations: %+v\n", atts)
-			for _, att := range atts {
-				purl := att.PURL
-				if attType, ok := purl.Qualifiers.Map()["attestation_type"]; ok {
-					fmt.Fprintf(os.Stderr, "Attestation type: %s\n", attType)
-				}
-				switch att.PURL.Type {
-				case "docker":
-					fmt.Fprintln(os.Stdout, oci.ImageURLFromPURL(purl))
-				default:
-					fmt.Fprintln(os.Stderr, "Unsupported purl type")
-				}
-			}
-
-			return nil
+			p := attestation.NewDefaultPrinter(os.Stdout)
+			return p.Print(atts)
 		},
 	}
 
-	cmd.AddCommand(NewListCommand())
-
-	ro.AddFlags(cmd)
+	lo.AddFlags(cmd)
 
 	return cmd
 }
