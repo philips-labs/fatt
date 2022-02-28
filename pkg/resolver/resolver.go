@@ -17,8 +17,13 @@ type PackageJSON struct {
 	Attestations []string `json:"attestations,omitempty"`
 }
 
-// Resolve resolves attestations from the given dir
-func Resolve(dir string) ([]attestation.Attestation, error) {
+type PackageJSONResolver struct {
+}
+
+var _ attestation.Resolver = (*PackageJSONResolver)(nil)
+
+// Resolve resolves attestations from the given directory looking at a package.json
+func (r *PackageJSONResolver) Resolve(dir string) ([]attestation.Attestation, error) {
 	if _, err := os.Stat(dir); err != nil {
 		return nil, err
 	}

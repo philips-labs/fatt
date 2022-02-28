@@ -35,7 +35,8 @@ func New() *cobra.Command {
 				ro.FilePath = d
 			}
 
-			atts, err := resolver.Resolve(ro.FilePath)
+			r := resolver.PackageJSONResolver{}
+			atts, err := r.Resolve(ro.FilePath)
 			if err != nil {
 				return fmt.Errorf("failed to resolve attestations: %w", err)
 			}
