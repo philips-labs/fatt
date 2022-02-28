@@ -7,8 +7,8 @@ import (
 	"github.com/spf13/cobra"
 
 	"github.com/philips-labs/fatt/cmd/fatt/cli/options"
+	"github.com/philips-labs/fatt/pkg/attestation/resolvers/packagejson"
 	"github.com/philips-labs/fatt/pkg/oci"
-	"github.com/philips-labs/fatt/pkg/resolver"
 )
 
 const (
@@ -35,7 +35,7 @@ func New() *cobra.Command {
 				ro.FilePath = d
 			}
 
-			r := resolver.PackageJSONResolver{}
+			r := packagejson.Resolver{}
 			atts, err := r.Resolve(ro.FilePath)
 			if err != nil {
 				return fmt.Errorf("failed to resolve attestations: %w", err)
