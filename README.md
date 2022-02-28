@@ -39,7 +39,12 @@ To fetch an SBOM you can define a [purl][] with `attestation_type`=`sbom` qualif
   Using `fatt` we can now scan our project for attestations and fetch them using sget.
 
   ```shell
-  $ sget "$(bin/fatt -p examples/awesome-npm)"
+  $ attestations="$(bin/fatt -p examples/awesome-npm)"
+  Fetching attestations for current working directory…
+  Found attestations: [{PURL:{Type:docker Namespace:philips-labs Name:fatt Version:sha256:6cc65b2c82c2baa3391890abb8ab741efbcbc87baff3b06d5797afacb314ddd9 Qualifiers:repository_url=ghcr.io&attestation_type=sbom Subpath:} Type:SBOM} {PURL:{Type:docker Namespace:philips-labs Name:fatt Version:sha256:6cc65b2c82c2baa3391890abb8ab741efbcbc87baff3b06d5797afacb314ddd9 Qualifiers:repository_url=ghcr.io&attestation_type=provenance Subpath:} Type:SBOM}]
+  Attestation type: sbom
+  Attestation type: provenance
+  $ while read -r a ; do sget "$a" ; done <<< "$attestations"
   {
     "SPDXID": "SPDXRef-DOCUMENT",
     "name": "ghcr.io/philips-labs/slsa-provenance-v0.7.2",
