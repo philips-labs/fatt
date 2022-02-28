@@ -13,5 +13,5 @@ var _ CommandFlagger = (*RootOptions)(nil)
 // AddFlags implements CommandFlagger to add the RootOptions as flags to the given command
 func (o *RootOptions) AddFlags(cmd *cobra.Command) {
 	cmd.PersistentFlags().StringVarP(&o.FilePath, "file-path", "p", "", "the filepath to find attestation purls (defaults to current working dir)")
-	cmd.PersistentFlags().StringVarP(&o.Resolver, "resolver", "r", "txt", "the resolver to use for finding attestations")
+	cmd.PersistentFlags().StringVarP(&o.Resolver, "resolver", "r", "multi", "the resolver to use for finding attestations")
 }

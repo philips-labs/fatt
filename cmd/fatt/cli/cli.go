@@ -44,8 +44,13 @@ func New() *cobra.Command {
 				r = &txt.Resolver{}
 			case "packagejson":
 				r = &packagejson.Resolver{}
+			case "multi":
+				r = attestation.NewMultiResolver(
+					&txt.Resolver{},
+					&packagejson.Resolver{},
+				)
 			default:
-				fmt.Fprintln(os.Stderr, "unsupported resolver, supported resolvers are `txt` and `packagejson`.")
+				fmt.Fprintln(os.Stderr, "unsupported resolver, supported resolvers are `txt`, `packagejson`, `multi`.")
 			}
 
 			atts, err := r.Resolve(ro.FilePath)
