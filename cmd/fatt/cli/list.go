@@ -7,8 +7,6 @@ import (
 	"github.com/spf13/cobra"
 
 	"github.com/philips-labs/fatt/cmd/fatt/cli/options"
-	"github.com/philips-labs/fatt/pkg/attestation"
-	"github.com/philips-labs/fatt/pkg/oci"
 )
 
 var (
@@ -41,13 +39,11 @@ func NewListCommand() *cobra.Command {
 				return fmt.Errorf("failed to resolve attestations: %w", err)
 			}
 
-			var p attestation.Printer
-			switch lo.OutputFormat {
-			case "docker":
-				p = oci.NewDockerPrinter(os.Stdout)
-			default:
-				p = attestation.NewDefaultPrinter(os.Stdout)
+			p, err := lo.GetPrinter(os.Stdout)
+			if err != nil {
+				return err
 			}
+
 			return p.Print(atts)
 		},
 	}
