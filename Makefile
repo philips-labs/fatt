@@ -17,6 +17,7 @@ endif
 PKG=github.com/philips-labs/fatt/cmd/fatt/cli
 LDFLAGS="-X $(PKG).GitVersion=$(GIT_VERSION) -X $(PKG).gitCommit=$(GIT_HASH) -X $(PKG).gitTreeState=$(GIT_TREESTATE) -X $(PKG).buildDate=$(BUILD_DATE)"
 
+GO_LINT_TOOLS := goimports golint
 GO_BUILD_FLAGS := -trimpath -ldflags $(LDFLAGS)
 COMMANDS       := fatt
 
@@ -57,7 +58,7 @@ $(GO_PATH)/bin/golint:
 	go install golang.org/x/lint/golint@latest
 
 .PHONY: lint
-lint: $(GO_PATH)/bin/goimports $(GO_PATH)/bin/golint ## runs linting
+lint: $(addprefix $(GO_PATH)/bin/,$(GO_LINT_TOOLS)) ## runs linting
 	@echo Linting using golint
 	@golint -set_exit_status $(shell go list -f '{{ .Dir }}' ./...)
 	@echo Linting imports
@@ -80,3 +81,18 @@ coverage-html: coverage.out ## Ouput code coverage as HTML
 
 .PHONY: build
 build: $(addprefix bin/,$(COMMANDS)) ## builds binaries
+
+$(GO_PATH)/bin/goreleaser:
+	go install github.com/goreleaser/goreleaser@v1.5.0
+
+.PHONY: snapshot-release
+snapshot-release: $(GO_PATH)/bin/goreleaser ## creates a snapshot release using goreleaser
+	LDFLAGS=$(LDFLAGS) goreleaser release --snapshot --rm-dist
+
+.PHONY: release
+release: $(GO_PATH)/bin/goreleaser ## creates a release using goreleaser
+	LDFLAGS=$(LDFLAGS) goreleaser release
+
+.PHONY: release-vars
+release-vars: ## print the release variables for goreleaser
+	@echo export LDFLAGS=\"$(LDFLAGS)\"
