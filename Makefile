@@ -17,6 +17,7 @@ endif
 PKG=github.com/philips-labs/fatt/cmd/fatt/cli
 LDFLAGS="-X $(PKG).GitVersion=$(GIT_VERSION) -X $(PKG).gitCommit=$(GIT_HASH) -X $(PKG).gitTreeState=$(GIT_TREESTATE) -X $(PKG).buildDate=$(BUILD_DATE)"
 
+GO_LINT_TOOLS := goimports golint
 GO_BUILD_FLAGS := -trimpath -ldflags $(LDFLAGS)
 COMMANDS       := fatt
 
@@ -57,7 +58,7 @@ $(GO_PATH)/bin/golint:
 	go install golang.org/x/lint/golint@latest
 
 .PHONY: lint
-lint: $(GO_PATH)/bin/goimports $(GO_PATH)/bin/golint ## runs linting
+lint: $(addprefix $(GO_PATH)/bin/,$(GO_LINT_TOOLS)) ## runs linting
 	@echo Linting using golint
 	@golint -set_exit_status $(shell go list -f '{{ .Dir }}' ./...)
 	@echo Linting imports
