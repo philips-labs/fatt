@@ -1,0 +1,133 @@
+project_name: fatt
+
+before:
+  hooks:
+    - go mod tidy
+
+env:
+  - CGO_ENABLED=0
+
+builds:
+  - id: binary
+    dir: cmd/fatt
+    goos:
+      - windows
+      - darwin
+      - linux
+    goarch:
+      - amd64
+      - arm64
+    goarm:
+      - 8
+    ldflags:
+      - "{{ .Env.LDFLAGS }}"
+
+archives:
+  - id: archive
+    format: tar.gz
+    replacements:
+      darwin: macOS
+    files:
+      - LICENSE*
+      - README*
+      - cosign.pub
+      - dist/*.sig
+    format_overrides:
+      - goos: windows
+        format: zip
+
+checksum:
+  name_template: 'checksums.txt'
+
+dockers:
+  - goos: linux
+    goarch: amd64
+    image_templates:
+      - "ghcr.io/philips-labs/{{ .ProjectName }}:v{{ .Version }}"
+      - "ghcr.io/philips-labs/{{ .ProjectName }}:{{ .FullCommit }}"
+    build_flag_templates:
+      - "--pull"
+      - "--label=org.opencontainers.image.created={{.Date}}"
+      - "--label=org.opencontainers.image.title={{.ProjectName}}"
+      - "--label=org.opencontainers.image.description={{.ProjectName}}"
+      - "--label=org.opencontainers.image.revision={{.FullCommit}}"
+      - "--label=org.opencontainers.image.version=v{{.Version}}"
+      - "--label=org.opencontainers.image.licenses=MIT"
+      - "--label=org.opencontainers.image.vendor=Koninklijke Philips N.V."
+    extra_files:
+      - "Makefile"
+      - "go.mod"
+      - "go.sum"
+      - ".git"
+      - ".gitignore"
+      - "cmd"
+      - "pkg"
+
+signs:
+  - id: checksums
+    cmd: cosign
+    stdin: '{{ .Env.COSIGN_PASSWORD }}'
+    output: true
+    artifacts: checksum
+    args:
+      - sign-blob
+      - --key
+      - cosign.key
+      - '--output-certificate=${certificate}'
+      - '--output-signature=${signature}'
+      - '${artifact}'
+  - id: binaries
+    cmd: cosign
+    stdin: '{{ .Env.COSIGN_PASSWORD }}'
+    output: true
+    artifacts: binary
+    args:
+      - sign-blob
+      - --key
+      - cosign.key
+      - '--output-certificate=${certificate}'
+      - '--output-signature=${signature}'
+      - '${artifact}'
+  - id: archives
+    cmd: cosign
+    stdin: '{{ .Env.COSIGN_PASSWORD }}'
+    output: true
+    artifacts: archive
+    args:
+      - sign-blob
+      - --key
+      - cosign.key
+      - '--output-certificate=${certificate}'
+      - '--output-signature=${signature}'
+      - '${artifact}'
+
+docker_signs:
+  - cmd: cosign
+    artifacts: all
+    output: true
+    args:
+      - 'sign'
+      - --key
+      - cosign.key
+      - '${artifact}'
+
+snapshot:
+  name_template: "{{ .Version }}-next"
+
+changelog:
+  sort: asc
+  use: github
+  filters:
+    exclude:
+      - '^docs:'
+      - '^test:'
+      - Merge pull request
+      - Merge branch
+
+release:
+  draft: false
+  prerelease: auto
+  extra_files:
+    - glob: "./cosign.pub"
+  footer: |
+    **Full Changelog**: https://github.com/philips-labs/fatt/compare/{{ .PreviousTag }}...{{ .Tag }}

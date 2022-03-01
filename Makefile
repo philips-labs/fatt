@@ -81,3 +81,18 @@ coverage-html: coverage.out ## Ouput code coverage as HTML
 
 .PHONY: build
 build: $(addprefix bin/,$(COMMANDS)) ## builds binaries
+
+$(GO_PATH)/bin/goreleaser:
+	go install github.com/goreleaser/goreleaser@v1.5.0
+
+.PHONY: snapshot-release
+snapshot-release: $(GO_PATH)/bin/goreleaser ## creates a snapshot release using goreleaser
+	LDFLAGS=$(LDFLAGS) goreleaser release --snapshot --rm-dist
+
+.PHONY: release
+release: $(GO_PATH)/bin/goreleaser ## creates a release using goreleaser
+	LDFLAGS=$(LDFLAGS) goreleaser release
+
+.PHONY: release-vars
+release-vars: ## print the release variables for goreleaser
+	@echo export LDFLAGS=\"$(LDFLAGS)\"
