@@ -4,9 +4,10 @@ import (
 	"strings"
 	"testing"
 
+	"github.com/stretchr/testify/assert"
+
 	"github.com/philips-labs/fatt/pkg/attestation"
 	"github.com/philips-labs/fatt/pkg/attestation/resolvers/txt"
-	"github.com/stretchr/testify/assert"
 )
 
 func TestReducePurls(t *testing.T) {
@@ -27,8 +28,8 @@ pkg:nuget/philips-labs/fatt@sha256:823413cc65b2c82c2baa3391890abb8ab741e87baff3b
 		{name: "provenance filter", filter: `{ .IsAttestationType("provenance") }`, resultCount: 2},
 		{name: "empty filter", filter: "", resultCount: 5},
 		{name: "docker type filter", filter: `{ .PURL.Type == "docker" }`, resultCount: 3},
-		{name: "nuget filter", filter: `{ .RepositoryUrlOf("nuget.org") }`, resultCount: 2},
-		{name: "nuget sbom filter", filter: `{ .RepositoryUrlOf("nuget.org") && .IsAttestationType("sbom") }`, resultCount: 1},
+		{name: "nuget filter", filter: `{ .RepositoryURLOf("nuget.org") }`, resultCount: 2},
+		{name: "nuget sbom filter", filter: `{ .RepositoryURLOf("nuget.org") && .IsAttestationType("sbom") }`, resultCount: 1},
 		{name: "invalid filter", filter: `{ .Version == "v0.3.1" }`, resultCount: 0, expectedErrMsg: "cannot fetch Version from attestation.Attestation (1:25)\n | filter(Attestations, { .Version == \"v0.3.1\" })\n | ........................^"},
 		{name: "invalid expression", filter: "{}", resultCount: 0, expectedErrMsg: "unexpected token Bracket(\"}\") (1:23)\n | filter(Attestations, {})\n | ......................^"},
 	}
