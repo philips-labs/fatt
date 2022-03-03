@@ -7,7 +7,8 @@ import (
 	"github.com/antonmedv/expr"
 )
 
-type AttestationFilterEnv struct {
+// FilteredEnv type including an array of Attestations
+type FilteredEnv struct {
 	Attestations []Attestation
 }
 
@@ -19,10 +20,10 @@ func (a Attestation) IsAttestationType(t string) bool {
 	return false
 }
 
-// RepositoryUrlOf filters on a specific repository_url qualifier of the package.
-func (a Attestation) RepositoryUrlOf(registryUrl string) bool {
+// RepositoryURLOf filters on a specific repository_url qualifier of the package.
+func (a Attestation) RepositoryURLOf(registryURL string) bool {
 	if attType, ok := a.PURL.Qualifiers.Map()["repository_url"]; ok {
-		return strings.ToLower(attType) == registryUrl
+		return strings.ToLower(attType) == registryURL
 	}
 	return false
 }
@@ -37,7 +38,7 @@ func Reduce(atts []Attestation, filter string) ([]Attestation, error) {
 		return nil, err
 	}
 
-	result, err := expr.Run(program, AttestationFilterEnv{atts})
+	result, err := expr.Run(program, FilteredEnv{atts})
 	if err != nil {
 		return nil, err
 	}

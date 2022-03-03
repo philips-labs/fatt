@@ -52,6 +52,7 @@ func (r *Resolver) Resolve(dir string) ([]attestation.Attestation, error) {
 	return atts, nil
 }
 
+// ReadAttestations reads an io.reader and scans for attestations.
 func ReadAttestations(r io.Reader) ([]attestation.Attestation, error) {
 	atts := make([]attestation.Attestation, 0)
 	scanner := bufio.NewScanner(r)
