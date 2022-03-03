@@ -3,6 +3,7 @@ package txt
 import (
 	"bufio"
 	"fmt"
+	"io"
 	"os"
 	"path/filepath"
 
@@ -35,18 +36,12 @@ func (r *Resolver) Resolve(dir string) ([]attestation.Attestation, error) {
 			if err != nil {
 				return err
 			}
-
-			scanner := bufio.NewScanner(file)
-			for scanner.Scan() {
-				purl, err := packageurl.FromString(scanner.Text())
-				if err != nil {
-					return err
-				}
-				atts = append(atts, attestation.Attestation{
-					PURL: purl,
-					Type: attestation.SBOM,
-				})
+			defer file.Close()
+			prls, err := ReadAttestations(file)
+			if err != nil {
+				return err
 			}
+			atts = append(atts, prls...)
 		}
 
 		return nil
@@ -54,5 +49,21 @@ func (r *Resolver) Resolve(dir string) ([]attestation.Attestation, error) {
 		return nil, err
 	}
 
+	return atts, nil
+}
+
+func ReadAttestations(r io.Reader) ([]attestation.Attestation, error) {
+	atts := make([]attestation.Attestation, 0)
+	scanner := bufio.NewScanner(r)
+	for scanner.Scan() {
+		purl, err := packageurl.FromString(scanner.Text())
+		if err != nil {
+			return nil, err
+		}
+		atts = append(atts, attestation.Attestation{
+			PURL: purl,
+			Type: attestation.SBOM,
+		})
+	}
 	return atts, nil
 }
