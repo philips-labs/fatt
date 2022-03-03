@@ -7,6 +7,7 @@ import (
 	"github.com/spf13/cobra"
 
 	"github.com/philips-labs/fatt/cmd/fatt/cli/options"
+	"github.com/philips-labs/fatt/pkg/attestation"
 )
 
 var (
@@ -42,6 +43,14 @@ func NewListCommand() *cobra.Command {
 			p, err := lo.GetPrinter(os.Stdout)
 			if err != nil {
 				return err
+			}
+
+			if lo.Filter != "" {
+				atts, err := attestation.Reduce(atts, lo.Filter)
+				if err != nil {
+					return err
+				}
+				return p.Print(atts)
 			}
 
 			return p.Print(atts)
