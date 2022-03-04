@@ -6,6 +6,49 @@ Fatt is a small commandline utility that allows you to fetch attestations for yo
 
 `fatt` tries to find any [purl][] in your project by looking at predefined fields in the [supported packages](#supported-packages-and-attestations). These fields describe using a [purl][] where to grab the attestation from.
 
+## Fatt Usage
+
+```bash
+$ ./bin/fatt --help
+Discover and resolve your attestations
+
+Usage:
+  fatt [command]
+
+Available Commands:
+  completion  Generate the autocompletion script for the specified shell
+  help        Help about any command
+  list        Lists all attestations
+
+Flags:
+  -p, --file-path string   the filepath to find attestation purls (defaults to current working dir)
+  -h, --help               help for fatt
+  -r, --resolver string    the resolver to use for finding attestations (default "multi")
+
+Use "fatt [command] --help" for more information about a command.
+```
+
+### List command: Filter Option
+
+The following attestations fields can be filtered on.
+
+* Type
+* Namespace
+* Version
+* Name
+* Scheme
+
+The following functions are available.
+
+* `func (Attestation) IsRegistry(registryURL string) bool`
+* `func (Attestation) IsAttestationType(t string) bool`
+
+```bash
+$ bin/fatt list -f '{ .IsRegistry("ghcr.io") && .IsAttestationType("sbom") }'
+pkg:docker/philips-labs/fatt@sha256:6cc65b2c82c2baa3391890abb8ab741efbcbc87baff3b06d5797afacb314ddd9?repository_url=ghcr.io&attestation_type=sbom
+pkg:docker/philips-labs/fatt@sha256:6cc65b2c82c2baa3391890abb8ab741efbcbc87baff3b06d5797afacb314ddd9?repository_url=ghcr.io&attestation_type=sbom
+```
+
 ## Supported packages and attestations
 
 ### NPM
