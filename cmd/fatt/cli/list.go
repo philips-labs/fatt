@@ -40,17 +40,16 @@ func NewListCommand() *cobra.Command {
 				return fmt.Errorf("failed to resolve attestations: %w", err)
 			}
 
-			p, err := lo.GetPrinter(os.Stdout)
-			if err != nil {
-				return err
-			}
-
 			if lo.Filter != "" {
-				atts, err := attestation.Reduce(atts, lo.Filter)
+				atts, err = attestation.Reduce(atts, lo.Filter)
 				if err != nil {
 					return err
 				}
-				return p.Print(atts)
+			}
+
+			p, err := lo.GetPrinter(os.Stdout)
+			if err != nil {
+				return err
 			}
 
 			return p.Print(atts)
