@@ -1,15 +1,23 @@
 package cli
 
 import (
+	"encoding/json"
 	"fmt"
 	"runtime"
 	"strings"
 	"text/tabwriter"
 
 	"github.com/spf13/cobra"
+
+	"github.com/philips-labs/fatt/cmd/fatt/cli/options"
 )
 
-func Version() *cobra.Command {
+var (
+	vo = &options.VersionOptions{}
+)
+
+// NewVersionCommand creates a new instance of a version command
+func NewVersionCommand() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "version",
 		Short: fmt.Sprintf("Prints the %s version", cliName),
@@ -17,10 +25,19 @@ func Version() *cobra.Command {
 		RunE: func(cmd *cobra.Command, args []string) error {
 			v := VersionInfo()
 			res := v.String()
+			switch vo.OutputFormat {
+			case "json":
+				j, err := v.JSONString()
+				if err != nil {
+					return fmt.Errorf("unable to generate JSON from version info: %w", err)
+				}
+				res = j
+			}
 			fmt.Fprintln(cmd.OutOrStdout(), res)
 			return nil
 		},
 	}
+	vo.AddFlags(cmd)
 	return cmd
 }
 
@@ -75,8 +92,18 @@ func (i *Info) String() string {
 	fmt.Fprintf(w, "BuildDate:\t%s\n", i.BuildDate)
 	fmt.Fprintf(w, "GoVersion:\t%s\n", i.GoVersion)
 	fmt.Fprintf(w, "Compiler:\t%s\n", i.Compiler)
-	fmt.Fprintf(w, "Platform:\t%s\n", i.Platform)
+	fmt.Fprintf(w, "Platform:\t%s", i.Platform)
 
 	w.Flush()
 	return b.String()
+}
+
+// JSONString returns the JSON representation of the version info
+func (i *Info) JSONString() (string, error) {
+	b, err := json.MarshalIndent(i, "", "  ")
+	if err != nil {
+		return "", err
+	}
+
+	return string(b), nil
 }
