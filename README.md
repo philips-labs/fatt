@@ -19,6 +19,7 @@ Available Commands:
   completion  Generate the autocompletion script for the specified shell
   help        Help about any command
   list        Lists all attestations
+  version     Prints the fatt version
 
 Flags:
   -p, --file-path string   the filepath to find attestation purls (defaults to current working dir)
