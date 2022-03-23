@@ -4,40 +4,39 @@ Fatt is a small commandline utility that allows you to fetch attestations for yo
 
 > :warning: This project is currently nothing more than a POC.
 
-`fatt` tries to find any [purl][] in your project by looking at predefined fields in the [supported packages](#supported-packages-and-attestations). These fields describe using a [purl][] where to grab the attestation from.
+`fatt` tries to find any [purl][] in your project by searching the given path recursively for `attestations.txt`. Within an `attestations.txt` you can describe where your project stores attestations using [purl][] format.
+
+In addition `fatt` allows to fetch these attestations from an OCI registry. It assumes that given location contains an uploaded blob using cosign containing the contents of `attestations.txt`.
 
 ## Fatt Usage
 
 ```bash
-$ ./bin/fatt --help
-Discover and resolve your attestations
+$ ./bin/fatt list --help
+Lists all attestations
 
 Usage:
-  fatt [command]
-
-Available Commands:
-  completion  Generate the autocompletion script for the specified shell
-  help        Help about any command
-  list        Lists all attestations
-  version     Prints the fatt version
+  fatt list <discovery-path> [flags]
 
 Flags:
-  -p, --file-path string   the filepath to find attestation purls (defaults to current working dir)
-  -h, --help               help for fatt
-  -r, --resolver string    the resolver to use for finding attestations (default "multi")
-
-Use "fatt [command] --help" for more information about a command.
+  -f, --filter string          filter attestations using template expressions
+  -h, --help                   help for list
+      --key string             path to the public key file, URL, or KMS URI
+  -o, --output-format string   output format for the list (default "purl")
 ```
 
-### List command: Filter Option
+### List filter options
 
-The following attestations fields can be filtered on.
+Filters use the Go template language.
+
+The following fields are supported.
 
 * Type
-* Namespace
-* Version
-* Name
-* Scheme
+* PURL.Type
+* PURL.Namespace
+* PURL.Name
+* PURL.Version
+* PURL.Subpath
+* PURL.Qualifiers
 
 The following functions are available.
 
@@ -50,44 +49,35 @@ pkg:docker/philips-labs/fatt@sha256:6cc65b2c82c2baa3391890abb8ab741efbcbc87baff3
 pkg:docker/philips-labs/fatt@sha256:6cc65b2c82c2baa3391890abb8ab741efbcbc87baff3b06d5797afacb314ddd9?repository_url=ghcr.io&attestation_type=sbom
 ```
 
-## Supported packages and attestations
+## OCI
 
-### NPM
+Any attestations published to an OCI registry should be captured in a `attestations.txt`. To distribute this discovery filewe can publish this as well to an OCI registry.
 
-#### SBOM
-
-To fetch an SBOM you can define a [purl][] with `attestation_type`=`sbom` qualifier in `package.json` within a attestations array.
+We can do this utilizing cosign. (we might add integration later to reduce the manual steps).
 
 <details>
-  <summary>Example cosign stored sbom</summary>
+  <summary>Store attestations.txt using cosign.</summary>
 
-  Using cosign we can leverage any [OCI registry][] to store our attestations.
-
-  ```shell
-  $ cosign upload blob -f sbom.spdx.json ghcr.io/philips-labs/fatt:example-sbom-attestation
-  Uploading file from [sbom.spdx.json] to [ghcr.io/philips-labs/fatt:example-sbom-attestation] with media type [text/plain]
-  File [sbom.spdx.json] is available directly at [ghcr.io/philips-labs/fatt@sha256:6cc65b2c82c2baa3391890abb8ab741efbcbc87baff3b06d5797afacb314ddd9]
-  ```
-
-  Now we can use a purl to link this attestation to our Node package.
-
-  ```json
-  {
-    "name": "@philips-labs/awesome-npm",
-    "attestations": [
-      "pkg:docker/philips-labs/fatt@sha256:6cc65b2c82c2baa3391890abb8ab741efbcbc87baff3b06d5797afacb314ddd9?repository_url=ghcr.io&attestation_type=sbom",
-    ]
-  }
-  ```
-
-  Using `fatt` we can now scan our project for attestations and fetch them using sget.
+  Using cosign we can leverage any [OCI registry][] to store our attestations. Once we stored the attestations we can capture that in an `attestations.txt` using [purl][] format. This `attestations.txt` we can also store in the [OCI registry][].
 
   ```shell
-  $ attestations="$(bin/fatt list -p examples/awesome-npm -o docker)"
-  Fetching attestations for current working directory…
-  Found attestations: [{PURL:{Type:docker Namespace:philips-labs Name:fatt Version:sha256:6cc65b2c82c2baa3391890abb8ab741efbcbc87baff3b06d5797afacb314ddd9 Qualifiers:repository_url=ghcr.io&attestation_type=sbom Subpath:} Type:SBOM} {PURL:{Type:docker Namespace:philips-labs Name:fatt Version:sha256:6cc65b2c82c2baa3391890abb8ab741efbcbc87baff3b06d5797afacb314ddd9 Qualifiers:repository_url=ghcr.io&attestation_type=provenance Subpath:} Type:SBOM}]
-  Attestation type: sbom
-  Attestation type: provenance
+  $ cosign upload blob -f attestations.txt ghcr.io/philips-labs/fatt:attestations
+  Uploading file from [attestations.txt] to [ghcr.io/philips-labs/fatt:attestations] with media type [text/plain]
+  File [attestations.txt] is available directly at [ghcr.io/philips-labs/fatt@sha256:6cc65b2c82c2baa3391890abb8ab741efbcbc87baff3b06d5797afacb314ddd9]
+  $ cosign sign --key cosign.key ghcr.io/philips-labs/fatt:attestations
+  ```
+
+  Using `fatt` we can now list the attestations stored in the OCI registry. `fatt` utilizes `sget` to fetch the `attestations.txt` and verify the signature. As we captured our attestations in PURL format we can also translate the attestations to docker format so we can also utilize sget to fetch the attestations themself.
+
+  ```shell
+  $ attestations="$(bin/fatt list --key cosign.pub -o docker ghcr.io/philips-labs/fatt:attestations)"
+  Fetching attestations from ghcr.io/philips-labs/fatt:attestations…
+
+  Verification for ghcr.io/philips-internal/attestations/slsa-workflow-examples/awesome-node-cli --
+  The following checks were performed on each of these signatures:
+    - The cosign claims were validated
+    - The signatures were verified against the specified public key
+
   $ while read -r a ; do sget "$a" ; done <<< "$attestations"
   {
     "SPDXID": "SPDXRef-DOCUMENT",
