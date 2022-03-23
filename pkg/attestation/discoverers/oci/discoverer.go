@@ -3,9 +3,19 @@ package oci
 import (
 	"bytes"
 	"context"
+	"errors"
+	"fmt"
 	"io"
+	"os"
 
-	"github.com/sigstore/cosign/pkg/sget"
+	"github.com/google/go-containerregistry/pkg/authn"
+	"github.com/google/go-containerregistry/pkg/name"
+	"github.com/google/go-containerregistry/pkg/v1/remote"
+	"github.com/sigstore/cosign/cmd/cosign/cli/fulcio"
+	"github.com/sigstore/cosign/cmd/cosign/cli/options"
+	"github.com/sigstore/cosign/pkg/cosign"
+	ociremote "github.com/sigstore/cosign/pkg/oci/remote"
+	sigs "github.com/sigstore/cosign/pkg/signature"
 
 	"github.com/philips-labs/fatt/pkg/attestation"
 )
@@ -44,8 +54,71 @@ func NewDiscoverer(keyRef string, options ...DiscoverOption) *Discoverer {
 
 // Discover discovers an attestations.txt from an oci registry
 func (r *Discoverer) Discover(blobRef string) (io.Reader, error) {
-	wc := &bytes.Buffer{}
-	err := sget.New(blobRef, r.keyRef, wc).Do(r.context)
+	// Mojority of implementation taken from https://github.com/sigstore/cosign/blob/main/pkg/sget/sget.go
 
-	return wc, err
+	buf := &bytes.Buffer{}
+
+	ref, err := name.ParseReference(blobRef)
+	if err != nil {
+		return nil, err
+	}
+
+	opts := []remote.Option{
+		remote.WithAuthFromKeychain(authn.DefaultKeychain),
+		remote.WithContext(r.context),
+	}
+
+	co := &cosign.CheckOpts{
+		ClaimVerifier:      cosign.SimpleClaimVerifier,
+		RegistryClientOpts: []ociremote.Option{ociremote.WithRemoteOptions(opts...)},
+	}
+	if _, ok := ref.(name.Tag); ok {
+		if r.keyRef == "" && !options.EnableExperimental() {
+			return nil, errors.New("public key must be specified when fetching by tag, you must fetch by digest or supply a public key")
+		}
+	}
+
+	ref, err = ociremote.ResolveDigest(ref, co.RegistryClientOpts...)
+	if err != nil {
+		return nil, err
+	}
+
+	if r.keyRef != "" {
+		pub, err := sigs.LoadPublicKey(r.context, r.keyRef)
+		if err != nil {
+			return nil, err
+		}
+		co.SigVerifier = pub
+	}
+
+	if co.SigVerifier != nil || options.EnableExperimental() {
+		co.RootCerts = fulcio.GetRoots()
+
+		fmt.Fprintf(os.Stderr, "Verifying signature for %s…\n", ref)
+		_, _, err := cosign.VerifyImageSignatures(r.context, ref, co)
+		if err != nil {
+			return nil, err
+		}
+	}
+
+	img, err := remote.Image(ref, opts...)
+	if err != nil {
+		return nil, err
+	}
+	layers, err := img.Layers()
+	if err != nil {
+		return nil, err
+	}
+	if len(layers) != 1 {
+		return nil, errors.New("invalid artifact")
+	}
+	rc, err := layers[0].Compressed()
+	if err != nil {
+		return nil, err
+	}
+	defer rc.Close()
+
+	_, err = io.Copy(buf, rc)
+
+	return buf, err
 }
