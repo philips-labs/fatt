@@ -22,6 +22,7 @@ func New() *cobra.Command {
 	}
 
 	cmd.AddCommand(NewListCommand())
+	cmd.AddCommand(NewPublishCommand())
 	cmd.AddCommand(NewVersionCommand())
 
 	ro.AddFlags(cmd)
