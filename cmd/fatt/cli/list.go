@@ -45,7 +45,6 @@ func NewListCommand() *cobra.Command {
 			if err != nil {
 				return err
 			}
-			defer attReader.Close()
 
 			r, err := lo.GetResolver()
 			if err != nil {

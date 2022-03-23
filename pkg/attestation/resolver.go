@@ -6,5 +6,5 @@ import (
 
 // Resolver allows to resolve attestations
 type Resolver interface {
-	Resolve(io.ReadCloser) ([]Attestation, error)
+	Resolve(io.Reader) ([]Attestation, error)
 }

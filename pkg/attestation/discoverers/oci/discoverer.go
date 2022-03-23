@@ -43,9 +43,9 @@ func NewDiscoverer(keyRef string, options ...DiscoverOption) *Discoverer {
 }
 
 // Discover discovers an attestations.txt from an oci registry
-func (r *Discoverer) Discover(blobRef string) (io.ReadCloser, error) {
+func (r *Discoverer) Discover(blobRef string) (io.Reader, error) {
 	wc := &bytes.Buffer{}
 	err := sget.New(blobRef, r.keyRef, wc).Do(r.context)
 
-	return io.NopCloser(wc), err
+	return wc, err
 }

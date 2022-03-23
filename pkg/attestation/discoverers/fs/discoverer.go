@@ -16,7 +16,7 @@ type Discoverer struct{}
 var _ attestation.Discoverer = (*Discoverer)(nil)
 
 // Discover discovers an attestations.txt
-func (r *Discoverer) Discover(dir string) (io.ReadCloser, error) {
+func (r *Discoverer) Discover(dir string) (io.Reader, error) {
 	if _, err := os.Stat(dir); err != nil {
 		return nil, err
 	}
@@ -46,5 +46,5 @@ func (r *Discoverer) Discover(dir string) (io.ReadCloser, error) {
 		return nil, err
 	}
 
-	return io.NopCloser(buf), nil
+	return buf, nil
 }

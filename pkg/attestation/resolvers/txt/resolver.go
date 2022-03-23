@@ -15,7 +15,7 @@ type Resolver struct{}
 var _ attestation.Resolver = (*Resolver)(nil)
 
 // Resolve resolves the attestations via txt
-func (r *Resolver) Resolve(rc io.ReadCloser) ([]attestation.Attestation, error) {
+func (r *Resolver) Resolve(rc io.Reader) ([]attestation.Attestation, error) {
 	atts := make([]attestation.Attestation, 0)
 	scanner := bufio.NewScanner(rc)
 
