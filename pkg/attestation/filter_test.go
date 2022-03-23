@@ -1,6 +1,7 @@
 package attestation_test
 
 import (
+	"io"
 	"strings"
 	"testing"
 
@@ -34,7 +35,7 @@ pkg:nuget/philips-labs/fatt@sha256:823413cc65b2c82c2baa3391890abb8ab741e87baff3b
 		{name: "invalid expression", filter: "{}", resultCount: 0, expectedErrMsg: "unexpected token Bracket(\"}\") (1:23)\n | filter(Attestations, {})\n | ......................^"},
 	}
 
-	atts, err := txt.ReadAttestations(strings.NewReader(purlsFile))
+	atts, err := (&txt.Resolver{}).Resolve(io.NopCloser(strings.NewReader(purlsFile)))
 	assert.NoError(t, err)
 
 	for _, tc := range testCases {
