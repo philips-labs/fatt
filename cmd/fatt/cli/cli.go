@@ -11,7 +11,7 @@ const (
 )
 
 var (
-	ro = &options.RootOptions{}
+	ro = options.NewRootOptions()
 )
 
 // New create a new instance of the fatt commandline interface

@@ -2,10 +2,8 @@ package txt
 
 import (
 	"bufio"
-	"fmt"
 	"io"
-	"os"
-	"path/filepath"
+	"strings"
 
 	"github.com/package-url/packageurl-go"
 
@@ -18,44 +16,10 @@ type Resolver struct{}
 var _ attestation.Resolver = (*Resolver)(nil)
 
 // Resolve resolves the attestations via txt
-func (r *Resolver) Resolve(dir string) ([]attestation.Attestation, error) {
-	if _, err := os.Stat(dir); err != nil {
-		return nil, err
-	}
-
+func (r *Resolver) Resolve(rc io.Reader) ([]attestation.Attestation, error) {
 	atts := make([]attestation.Attestation, 0)
+	scanner := bufio.NewScanner(rc)
 
-	if err := filepath.Walk(dir, func(path string, info os.FileInfo, err error) error {
-		if err != nil {
-			fmt.Println(err)
-			return nil
-		}
-
-		if !info.IsDir() && info.Name() == "attestations.txt" {
-			file, err := os.Open(path)
-			if err != nil {
-				return err
-			}
-			defer file.Close()
-			prls, err := ReadAttestations(file)
-			if err != nil {
-				return err
-			}
-			atts = append(atts, prls...)
-		}
-
-		return nil
-	}); err != nil {
-		return nil, err
-	}
-
-	return atts, nil
-}
-
-// ReadAttestations reads the lines from the reader and returns them as attestations.
-func ReadAttestations(r io.Reader) ([]attestation.Attestation, error) {
-	atts := make([]attestation.Attestation, 0)
-	scanner := bufio.NewScanner(r)
 	for scanner.Scan() {
 		purl, err := packageurl.FromString(scanner.Text())
 		if err != nil {
@@ -63,8 +27,24 @@ func ReadAttestations(r io.Reader) ([]attestation.Attestation, error) {
 		}
 		atts = append(atts, attestation.Attestation{
 			PURL: purl,
-			Type: attestation.SBOM,
+			Type: getType(purl),
 		})
 	}
+
 	return atts, nil
+}
+
+func getType(p packageurl.PackageURL) attestation.Type {
+	if attType, ok := p.Qualifiers.Map()["attestation_type"]; ok {
+		switch strings.ToLower(attType) {
+		case "provenance":
+			return attestation.Provenance
+		case "sbom":
+			return attestation.SBOM
+		default:
+			return attestation.Unknown
+		}
+	}
+
+	return attestation.Unknown
 }

@@ -1,6 +1,7 @@
 package cli
 
 import (
+	"context"
 	"fmt"
 	"os"
 
@@ -10,32 +11,47 @@ import (
 	"github.com/philips-labs/fatt/pkg/attestation"
 )
 
-var (
-	lo = &options.ListOptions{}
-)
-
 // NewListCommand creates a new instance of a list command
 func NewListCommand() *cobra.Command {
-	cmd := &cobra.Command{
-		Use:   "list",
-		Short: "Lists all attestations",
-		RunE: func(cmd *cobra.Command, args []string) error {
-			fmt.Fprintln(os.Stderr, "Fetching attestations for current working directory…")
+	lo := options.NewListOptions()
 
-			if ro.FilePath == "" {
+	cmd := &cobra.Command{
+		Use:   "list <discovery-path>",
+		Short: "Lists all attestations",
+		Args: func(cmd *cobra.Command, args []string) error {
+			if len(args) != 1 {
 				d, err := os.Getwd()
 				if err != nil {
 					return err
 				}
-				ro.FilePath = d
+				lo.FilePath = d
+			} else {
+				lo.FilePath = args[0]
 			}
 
-			r, err := ro.GetResolver()
+			return nil
+		},
+		RunE: func(cmd *cobra.Command, args []string) error {
+			fmt.Fprintf(os.Stderr, "Fetching attestations from %s…\n", lo.FilePath)
+			ctx, cancel := context.WithCancel(cmd.Context())
+			defer cancel()
+
+			d, err := lo.GetDiscoverer(ctx)
 			if err != nil {
 				return err
 			}
 
-			atts, err := r.Resolve(ro.FilePath)
+			attReader, err := d.Discover(lo.FilePath)
+			if err != nil {
+				return err
+			}
+
+			r, err := lo.GetResolver()
+			if err != nil {
+				return err
+			}
+
+			atts, err := r.Resolve(attReader)
 			if err != nil {
 				return fmt.Errorf("failed to resolve attestations: %w", err)
 			}
