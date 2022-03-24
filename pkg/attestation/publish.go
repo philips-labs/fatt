@@ -4,10 +4,12 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"os"
 	"strings"
 
 	"github.com/google/go-containerregistry/pkg/authn"
 	"github.com/google/go-containerregistry/pkg/name"
+	v1 "github.com/google/go-containerregistry/pkg/v1"
 	"github.com/google/go-containerregistry/pkg/v1/remote"
 	"github.com/package-url/packageurl-go"
 	cremote "github.com/sigstore/cosign/pkg/cosign/remote"
@@ -15,16 +17,67 @@ import (
 	"github.com/philips-labs/fatt/pkg/oci"
 )
 
+// File extends cremote.File by adding Scheme
+type File interface {
+	cremote.File
+	Scheme() string
+}
+
 // PublishResult captures the result after publishing the attestations
 type PublishResult struct {
-	AttestationFile string
-	OCIRef          string
-	PURL            *packageurl.PackageURL
+	OCIRef string
+	PURL   *packageurl.PackageURL
+}
+
+type file struct {
+	scheme string
+	path   string
+}
+
+// Scheme implements AttestationFile
+func (f file) Scheme() string {
+	return f.scheme
+}
+
+// Contents implements AttestationFile
+func (f file) Contents() ([]byte, error) {
+	return os.ReadFile(f.path)
+}
+
+// Path implements AttestationFile
+func (f file) Path() string {
+	return f.path
+}
+
+// Platform implements AttestationFile
+func (file) Platform() *v1.Platform {
+	return nil
+}
+
+// String implements AttestationFile
+func (f file) String() string {
+	return f.scheme + "://" + f.path
+}
+
+var _ File = file{}
+
+// ParseFileRef parses a file reference as a AttestationFile
+func ParseFileRef(fileRef string) (File, error) {
+	refParts := strings.Split(fileRef, "://")
+
+	if len(refParts) != 2 {
+		return nil, errors.New("could not parse attestation scheme, use <scheme>://<file> format")
+	}
+
+	return &file{
+		scheme: refParts[0],
+		path:   refParts[1],
+	}, nil
 }
 
 // Publish publishes the attestations to an oci repository
-func Publish(ctx context.Context, repository, version, attestationRef string) (*PublishResult, error) {
-	t, err := getType(attestationRef)
+func Publish(ctx context.Context, repository, version string, att cremote.File) (*PublishResult, error) {
+	t, err := getType(att.String())
 	if err != nil {
 		return nil, err
 	}
@@ -36,8 +89,7 @@ func Publish(ctx context.Context, repository, version, attestationRef string) (*
 		return nil, err
 	}
 
-	fileName := strings.Split(attestationRef, "://")[1]
-	digestRef, err := uploadBlob(ctx, fileName, ref)
+	digestRef, err := uploadBlob(ctx, att, ref)
 	if err != nil {
 		return nil, err
 	}
@@ -48,33 +100,34 @@ func Publish(ctx context.Context, repository, version, attestationRef string) (*
 	}
 
 	return &PublishResult{
-		AttestationFile: fileName,
-		OCIRef:          ociRef,
-		PURL:            purl,
+		OCIRef: ociRef,
+		PURL:   purl,
 	}, nil
 }
 
-func getType(attestationRef string) (string, error) {
+func getType(att string) (string, error) {
 	prov := "provenance"
 	sbom := "sbom"
+	discovery := "discovery"
 
 	switch {
-	case strings.HasPrefix(attestationRef, prov+"://"):
+	case strings.HasPrefix(att, prov+"://"):
 		return prov, nil
-	case strings.HasPrefix(attestationRef, sbom+"://"):
+	case strings.HasPrefix(att, sbom+"://"):
 		return sbom, nil
+	case strings.HasPrefix(att, discovery+"://"):
+		return discovery, nil
 	default:
-		return "", errors.New("could not parse attestation scheme, use <scheme>://<file> format")
+		return "", errors.New("currently only sbom:// and provenance:// schemes are supported")
 	}
 }
 
-func uploadBlob(ctx context.Context, fileName string, ref name.Reference) (name.Digest, error) {
+func uploadBlob(ctx context.Context, file cremote.File, ref name.Reference) (name.Digest, error) {
 	mt := cremote.DefaultMediaTypeGetter
 	opts := []remote.Option{
 		remote.WithAuthFromKeychain(authn.DefaultKeychain),
 		remote.WithContext(ctx),
 	}
 
-	file := cremote.FileFromFlag(fileName)
 	return cremote.UploadFiles(ref, []cremote.File{file}, mt, opts...)
 }
