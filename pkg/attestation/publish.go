@@ -7,6 +7,8 @@ import (
 
 	"github.com/google/go-containerregistry/pkg/name"
 	"github.com/package-url/packageurl-go"
+
+	"github.com/philips-labs/fatt/pkg/oci"
 )
 
 // PublishResult captures the result after publishing the attestations
@@ -24,7 +26,13 @@ func Publish(repository, version, attestationRef string) (*PublishResult, error)
 	}
 
 	ociRef := fmt.Sprintf("%s:%s.%s", repository, version, t)
-	purl, err := toPackageURL(ociRef)
+
+	ref, err := name.ParseReference(ociRef)
+	if err != nil {
+		return nil, err
+	}
+
+	purl, err := oci.ToPackageURL(ref)
 	if err != nil {
 		return nil, err
 	}
@@ -50,24 +58,4 @@ func getType(attestationRef string) (string, error) {
 	default:
 		return "", errors.New("could not parse attestation scheme, use <scheme>://<file> format")
 	}
-}
-
-// https://github.com/package-url/purl-spec/blob/master/PURL-TYPES.rst#oci
-func toPackageURL(ociRef string) (*packageurl.PackageURL, error) {
-	ref, err := name.ParseReference(ociRef)
-	if err != nil {
-		return nil, err
-	}
-
-	rs := ref.Context().RepositoryStr()
-	ns := rs[:strings.LastIndex(rs, "/")]
-	n := rs[strings.LastIndex(rs, "/")+1:]
-	v := ref.Identifier() //TODO get digest to comply with purl spec
-
-	q := packageurl.QualifiersFromMap(map[string]string{
-		"repository_url": fmt.Sprintf("%s/%s", ref.Context().RegistryStr(), ref.Context().RepositoryStr()),
-		"tag":            ref.Identifier(),
-	})
-
-	return packageurl.NewPackageURL("oci", ns, n, v, q, ""), nil
 }

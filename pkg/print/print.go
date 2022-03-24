@@ -1,10 +1,11 @@
-package oci
+package print
 
 import (
 	"fmt"
 	"io"
 
 	"github.com/philips-labs/fatt/pkg/attestation"
+	"github.com/philips-labs/fatt/pkg/oci"
 )
 
 // DockerPrinter prints the attestations in OCI format
@@ -23,15 +24,13 @@ func NewDockerPrinter(w io.Writer) *DockerPrinter {
 func (p *DockerPrinter) Print(atts []attestation.Attestation) error {
 	for _, att := range atts {
 		purl := att.PURL
-		if err := p.PrintAttestation(ImageURLFromPURL(purl)); err != nil {
+		ref, err := oci.FromPackageURL(purl)
+		if err != nil {
+			return err
+		}
+		if _, err := fmt.Fprintln(p.w, ref.String()); err != nil {
 			return err
 		}
 	}
 	return nil
-}
-
-// PrintAttestation prints a single attestation to the io.Writer
-func (p *DockerPrinter) PrintAttestation(purl string) error {
-	_, err := fmt.Fprintln(p.w, purl)
-	return err
 }
