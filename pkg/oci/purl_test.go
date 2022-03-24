@@ -15,34 +15,40 @@ func TestToPackageUrl(t *testing.T) {
 
 	ociRef, err := name.ParseReference("ghcr.io/philips-labs/fatt:v0.1.0.sbom")
 	assert.NoError(err)
-
-	// TODO: to comply with the purl spec need to have digest as version
-	expectedPURL, err := packageurl.FromString("pkg:oci/philips-labs/fatt@v0.1.0.sbom?repository_url=ghcr.io/philips-labs/fatt&tag=v0.1.0.sbom")
+	digestRef, err := name.ParseReference("ghcr.io/philips-labs/fatt@sha256:877084e55eb2896eb3d159df7483862e8f7470469d9ac732a54da2298bcf456c")
 	assert.NoError(err)
 
-	purl, err := oci.ToPackageURL(ociRef)
+	// TODO: to comply with the purl spec need to have digest as version
+	expectedPURL, err := packageurl.FromString("pkg:oci/philips-labs/fatt@sha256:877084e55eb2896eb3d159df7483862e8f7470469d9ac732a54da2298bcf456c?repository_url=ghcr.io/philips-labs/fatt&tag=v0.1.0.sbom")
+	assert.NoError(err)
+
+	purl, err := oci.ToPackageURL(ociRef, digestRef)
 	assert.NoError(err)
 	assertPURL(t, expectedPURL, *purl)
 
 	ociRef, err = name.ParseReference("ghcr.io/philips-labs/with-long-repo/fatt:v0.1.0.provenance")
 	assert.NoError(err)
-
-	// TODO: to comply with the purl spec need to have digest as version
-	expectedPURL, err = packageurl.FromString("pkg:oci/philips-labs/with-long-repo/fatt@v0.1.0.provenance?repository_url=ghcr.io/philips-labs/with-long-repo/fatt&tag=v0.1.0.provenance")
+	digestRef, err = name.ParseReference("ghcr.io/philips-labs/with-long-repo/fatt@sha256:f25d28beea7c81af4160a32256831380d7173449cfc49dde70bcca1b697f9c7e")
 	assert.NoError(err)
 
-	purl, err = oci.ToPackageURL(ociRef)
+	// TODO: to comply with the purl spec need to have digest as version
+	expectedPURL, err = packageurl.FromString("pkg:oci/philips-labs/with-long-repo/fatt@sha256:f25d28beea7c81af4160a32256831380d7173449cfc49dde70bcca1b697f9c7e?repository_url=ghcr.io/philips-labs/with-long-repo/fatt&tag=v0.1.0.provenance")
+	assert.NoError(err)
+
+	purl, err = oci.ToPackageURL(ociRef, digestRef)
 	assert.NoError(err)
 	assertPURL(t, expectedPURL, *purl)
 
 	ociRef, err = name.ParseReference("philipssoftware/fatt:v0.1.0.sbom")
 	assert.NoError(err)
-
-	// TODO: to comply with the purl spec need to have digest as version
-	expectedPURL, err = packageurl.FromString("pkg:oci/philipssoftware/fatt@v0.1.0.sbom?repository_url=index.docker.io/philipssoftware/fatt&tag=v0.1.0.sbom")
+	digestRef, err = name.ParseReference("philipssoftware/fatt@sha256:877084e55eb2896eb3d159df7483862e8f7470469d9ac732a54da2298bcf456c")
 	assert.NoError(err)
 
-	purl, err = oci.ToPackageURL(ociRef)
+	// TODO: to comply with the purl spec need to have digest as version
+	expectedPURL, err = packageurl.FromString("pkg:oci/philipssoftware/fatt@sha256:877084e55eb2896eb3d159df7483862e8f7470469d9ac732a54da2298bcf456c?repository_url=index.docker.io/philipssoftware/fatt&tag=v0.1.0.sbom")
+	assert.NoError(err)
+
+	purl, err = oci.ToPackageURL(ociRef, digestRef)
 	assert.NoError(err)
 	assertPURL(t, expectedPURL, *purl)
 }

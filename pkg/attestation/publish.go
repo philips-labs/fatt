@@ -1,12 +1,16 @@
 package attestation
 
 import (
+	"context"
 	"errors"
 	"fmt"
 	"strings"
 
+	"github.com/google/go-containerregistry/pkg/authn"
 	"github.com/google/go-containerregistry/pkg/name"
+	"github.com/google/go-containerregistry/pkg/v1/remote"
 	"github.com/package-url/packageurl-go"
+	cremote "github.com/sigstore/cosign/pkg/cosign/remote"
 
 	"github.com/philips-labs/fatt/pkg/oci"
 )
@@ -19,7 +23,7 @@ type PublishResult struct {
 }
 
 // Publish publishes the attestations to an oci repository
-func Publish(repository, version, attestationRef string) (*PublishResult, error) {
+func Publish(ctx context.Context, repository, version, attestationRef string) (*PublishResult, error) {
 	t, err := getType(attestationRef)
 	if err != nil {
 		return nil, err
@@ -32,12 +36,16 @@ func Publish(repository, version, attestationRef string) (*PublishResult, error)
 		return nil, err
 	}
 
-	purl, err := oci.ToPackageURL(ref)
+	fileName := strings.Split(attestationRef, "://")[1]
+	digestRef, err := uploadBlob(ctx, fileName, ref)
 	if err != nil {
 		return nil, err
 	}
 
-	fileName := strings.Split(attestationRef, "://")[1]
+	purl, err := oci.ToPackageURL(ref, digestRef)
+	if err != nil {
+		return nil, err
+	}
 
 	return &PublishResult{
 		AttestationFile: fileName,
@@ -58,4 +66,15 @@ func getType(attestationRef string) (string, error) {
 	default:
 		return "", errors.New("could not parse attestation scheme, use <scheme>://<file> format")
 	}
+}
+
+func uploadBlob(ctx context.Context, fileName string, ref name.Reference) (name.Digest, error) {
+	mt := cremote.DefaultMediaTypeGetter
+	opts := []remote.Option{
+		remote.WithAuthFromKeychain(authn.DefaultKeychain),
+		remote.WithContext(ctx),
+	}
+
+	file := cremote.FileFromFlag(fileName)
+	return cremote.UploadFiles(ref, []cremote.File{file}, mt, opts...)
 }
