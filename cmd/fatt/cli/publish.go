@@ -1,12 +1,13 @@
 package cli
 
 import (
+	"bytes"
 	"context"
 	"errors"
 	"fmt"
 	"os"
-	"strings"
 
+	v1 "github.com/google/go-containerregistry/pkg/v1"
 	"github.com/package-url/packageurl-go"
 	"github.com/spf13/cobra"
 
@@ -18,13 +19,36 @@ import (
 // to a newline separated file
 type AttestationsTXT []*packageurl.PackageURL
 
-func (a AttestationsTXT) String() string {
-	var b strings.Builder
+// Scheme implements remote.File
+func (a AttestationsTXT) Scheme() string {
+	return "discovery"
+}
+
+// Contents implements remote.File
+func (a AttestationsTXT) Contents() ([]byte, error) {
+	var b bytes.Buffer
 	for _, p := range a {
 		b.WriteString(p.String() + "\n")
 	}
-	return b.String()
+	return b.Bytes(), nil
 }
+
+// Path implements remote.File
+func (AttestationsTXT) Path() string {
+	return "attestations.txt"
+}
+
+// Platform implements remote.File
+func (AttestationsTXT) Platform() *v1.Platform {
+	return nil
+}
+
+// Platform implements remote.File
+func (a AttestationsTXT) String() string {
+	return a.Scheme() + "://" + a.Path()
+}
+
+var _ attestation.File = AttestationsTXT{}
 
 // NewPublishCommand creates a new instance of a publish command
 func NewPublishCommand() *cobra.Command {
@@ -49,6 +73,10 @@ func NewPublishCommand() *cobra.Command {
 
 			purls := make(AttestationsTXT, len(po.Attestations))
 			for i, att := range po.Attestations {
+				att, err := attestation.ParseFileRef(att)
+				if err != nil {
+					return err
+				}
 				r, err := attestation.Publish(ctx, po.Repository, po.Version, att)
 				if err != nil {
 					return err
@@ -62,9 +90,11 @@ func NewPublishCommand() *cobra.Command {
 
 			fmt.Fprintln(os.Stderr)
 			fmt.Fprintln(os.Stderr, "Generating attestations.txt based on uploaded attestations…")
-			fmt.Fprintf(os.Stderr, "%s", purls)
+			_, err := attestation.Publish(ctx, po.Repository, po.Version, purls)
+			if err != nil {
+				return err
+			}
 			fmt.Fprintln(os.Stderr)
-			fmt.Fprintf(os.Stderr, "cosign upload blob -f %s %s\n", "attestations.txt", discoveryOCIRef)
 			fmt.Fprintf(os.Stderr, "cosign sign --key %s %s\n", po.KeyRef, discoveryOCIRef)
 			return nil
 		},
