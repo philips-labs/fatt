@@ -44,16 +44,15 @@ func NewPublishCommand() *cobra.Command {
 		RunE: func(cmd *cobra.Command, args []string) error {
 			fmt.Fprintln(os.Stderr, "Publishing attestations…")
 
-			_, cancel := context.WithCancel(cmd.Context())
+			ctx, cancel := context.WithCancel(cmd.Context())
 			defer cancel()
 
 			purls := make(AttestationsTXT, len(po.Attestations))
 			for i, att := range po.Attestations {
-				r, err := attestation.Publish(po.Repository, po.Version, att)
+				r, err := attestation.Publish(ctx, po.Repository, po.Version, att)
 				if err != nil {
 					return err
 				}
-				fmt.Fprintf(os.Stderr, "cosign upload blob -f %s %s\n", r.AttestationFile, r.OCIRef)
 				fmt.Fprintf(os.Stderr, "cosign sign --key %s %s\n", po.KeyRef, r.OCIRef)
 
 				purls[i] = r.PURL

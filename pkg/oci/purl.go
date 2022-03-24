@@ -46,11 +46,11 @@ func FromPackageURL(purl packageurl.PackageURL) (name.Reference, error) {
 
 // ToPackageURL transforms an oci reference to Package URL format
 // https://github.com/package-url/purl-spec/blob/master/PURL-TYPES.rst#oci
-func ToPackageURL(ref name.Reference) (*packageurl.PackageURL, error) {
+func ToPackageURL(ref, digestRef name.Reference) (*packageurl.PackageURL, error) {
 	rs := ref.Context().RepositoryStr()
 	ns := rs[:strings.LastIndex(rs, "/")]
 	n := rs[strings.LastIndex(rs, "/")+1:]
-	v := ref.Identifier() //TODO get digest to comply with purl spec
+	v := digestRef.Identifier()
 
 	q := packageurl.QualifiersFromMap(map[string]string{
 		"repository_url": fmt.Sprintf("%s/%s", ref.Context().RegistryStr(), ref.Context().RepositoryStr()),
