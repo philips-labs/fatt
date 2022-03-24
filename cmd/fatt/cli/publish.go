@@ -9,6 +9,7 @@ import (
 	"github.com/spf13/cobra"
 
 	"github.com/philips-labs/fatt/cmd/fatt/cli/options"
+	"github.com/philips-labs/fatt/pkg/attestation"
 )
 
 // NewPublishCommand creates a new instance of a publish command
@@ -28,20 +29,25 @@ func NewPublishCommand() *cobra.Command {
 		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			fmt.Fprintln(os.Stderr, "Publishing attestations…")
-			fmt.Fprintln(os.Stderr)
 
 			_, cancel := context.WithCancel(cmd.Context())
 			defer cancel()
 
 			for _, att := range po.Attestations {
-				fmt.Fprintf(os.Stderr, "cosign upload blob -f %s %s\n", att, "todo.com/image-ref:tagging-convention.based-on-file-contents")
-				fmt.Fprintf(os.Stderr, "cosign sign --key %s %s\n", po.KeyRef, "todo.com/image-ref:tagging-convention.based-on-file-contents")
+				r, err := attestation.Publish(po.Repository, po.Version, att)
+				if err != nil {
+					return err
+				}
+				fmt.Fprintf(os.Stderr, "cosign upload blob -f %s %s\n", r.AttestationFile, r.OCIRef)
+				fmt.Fprintf(os.Stderr, "cosign sign --key %s %s\n", po.KeyRef, r.OCIRef)
 			}
+
+			discoveryOCIRef := fmt.Sprintf("%s:%s.%s", po.Repository, po.Version, "discover")
 
 			fmt.Fprintln(os.Stderr)
 			fmt.Fprintln(os.Stderr, "Generating attestations.txt based on uploaded attestations…")
-			fmt.Fprintf(os.Stderr, "cosign upload blob -f %s %s\n", "attestations.txt", "todo.com/image-ref:tagging-convention.discover")
-			fmt.Fprintf(os.Stderr, "cosign sign --key %s %s\n", po.KeyRef, "todo.com/image-ref:tagging-convention.discover")
+			fmt.Fprintf(os.Stderr, "cosign upload blob -f %s %s\n", "attestations.txt", discoveryOCIRef)
+			fmt.Fprintf(os.Stderr, "cosign sign --key %s %s\n", po.KeyRef, discoveryOCIRef)
 
 			return nil
 		},
