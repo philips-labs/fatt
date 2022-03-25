@@ -25,11 +25,13 @@ func FromPackageURL(purl packageurl.PackageURL) (name.Reference, error) {
 
 	var ociRef string
 	if repo, ok := purl.Qualifiers.Map()["repository_url"]; ok {
-		if tag, ok := purl.Qualifiers.Map()["tag"]; ok {
-			ociRef = fmt.Sprintf("%s:%s", repo, tag)
-		} else {
-			ociRef = fmt.Sprintf("%s@%s", repo, v)
-		}
+		ociRef = fmt.Sprintf("%s@%s", repo, v)
+		// TODO: Restore this logic when signatures are implemented in publish command.
+		// if tag, ok := purl.Qualifiers.Map()["tag"]; ok {
+		// 	ociRef = fmt.Sprintf("%s:%s", repo, tag)
+		// } else {
+		// 	ociRef = fmt.Sprintf("%s@%s", repo, v)
+		// }
 	} else if strings.Contains(v, "sha") {
 		ociRef = fmt.Sprintf("%s/%s@%s", ns, purl.Name, v)
 	} else {
