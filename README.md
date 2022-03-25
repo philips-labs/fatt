@@ -49,51 +49,59 @@ pkg:docker/philips-labs/fatt@sha256:6cc65b2c82c2baa3391890abb8ab741efbcbc87baff3
 pkg:docker/philips-labs/fatt@sha256:6cc65b2c82c2baa3391890abb8ab741efbcbc87baff3b06d5797afacb314ddd9?repository_url=ghcr.io&attestation_type=sbom
 ```
 
-## OCI
+## OCI as blob storage
 
-Any attestations published to an OCI registry should be captured in a `attestations.txt`. To distribute this discovery filewe can publish this as well to an OCI registry.
+Using OCI as a blob storage we can leverage this to distribute and discover attestations for software assets that are not OCI/Docker images. For this ecosystem we already have nice integration using [cosign](https://github.com/sigstore/cosign). With `fatt` we expand these capabilities to also support other ecosystems like NPM, Nuget, Gradle. Based on a publishing convention we can make it clear for our package consumers where they can retrieve our `build provenance` and `SBOM`.
 
-We can do this utilizing cosign. (we might add integration later to reduce the manual steps).
+Any attestations published to an OCI registry should be captured in a `attestations.txt`. Fatt publish command automates the manual steps to upload the attestations using cosign and then generates an `attestations.txt` using PURL references of the published attestations. Then it also automatically publishes these `attestations.txt`. Manually you would perform following steps:
 
-<details>
-  <summary>Store attestations.txt using cosign.</summary>
+```shell
+$ tree .
+.
+├── provenance.att
+└── sbom-spdx.json
+$ cosign upload blob -f provenance.att ghcr.io/philips-labs/fatt-attestations-example:v0.1.0.provenance
+$ cosign sign --key cosign.key ghcr.io/philips-labs/fatt-attestations-example:v0.1.0.provenance
+$ cosign upload blob -f sbom-spdx.json ghcr.io/philips-labs/fatt-attestations-example:v0.1.0.sbom
+$ cosign sign --key cosign.key ghcr.io/philips-labs/fatt-attestations-example:v0.1.0.sbom
+# Now you would manually fill out an attestations.txt using these image digests following this spec
+# https://github.com/package-url/purl-spec/blob/master/PURL-TYPES.rst#oci
+$ tree
+.
+├── attestations.txt
+├── provenance.att
+└── sbom-spdx.json
+$ cosign upload blob -f attestations.txt ghcr.io/philips-labs/fatt-attestations-example:v0.1.0.discover
+$ cosign sign --key cosign.key ghcr.io/philips-labs/fatt-attestations-example:v0.1.0.discover
+# Now we have the discovery file stored in an OCI registry we can look it up by digest
+$ fatt list --key cosign.pub ghcr.io/philips-labs/fatt-attestations-example:v0.1.0
+```
 
-  Using cosign we can leverage any [OCI registry][] to store our attestations. Once we stored the attestations we can capture that in an `attestations.txt` using [purl][] format. This `attestations.txt` we can also store in the [OCI registry][].
+See below how `fatt publish` automates this whole flow for you. (:warning: NOTE that signing currently is not yet build in. #20)
 
-  ```shell
-  $ cosign upload blob -f attestations.txt ghcr.io/philips-labs/fatt:attestations
-  Uploading file from [attestations.txt] to [ghcr.io/philips-labs/fatt:attestations] with media type [text/plain]
-  File [attestations.txt] is available directly at [ghcr.io/philips-labs/fatt@sha256:6cc65b2c82c2baa3391890abb8ab741efbcbc87baff3b06d5797afacb314ddd9]
-  $ cosign sign --key cosign.key ghcr.io/philips-labs/fatt:attestations
-  ```
+```shell
+$ tree .
+.
+├── provenance.att
+└── sbom-spdx.json
+$ fatt publish --repository ghcr.io/philips-labs/fatt-attestations-example --version v0.1.0 sbom://sbom-spdx.json provenance://provenance.att
+Publishing attestations…
+Uploading file from [sbom-spdx.json] to [ghcr.io/philips-labs/fatt-attestations-example:v0.1.0.sbom] with media type [text/plain]
+File [sbom-spdx.json] is available directly at [ghcr.io/v2/philips-labs/fatt-attestations-example/blobs/sha256:877084e55eb2896eb3d159df7483862e8f7470469d9ac732a54da2298bcf456c]
+Uploading file from [provenance.att] to [ghcr.io/philips-labs/fatt-attestations-example:v0.1.0.provenance] with media type [text/plain]
+File [provenance.att] is available directly at [ghcr.io/v2/philips-labs/fatt-attestations-example/blobs/sha256:a167d9ca71c4fda26e092eaa0a1d5242389b2f202ca822dff8f088faf8cce00e]
 
-  Using `fatt` we can now list the attestations stored in the OCI registry. `fatt` utilizes `sget` to fetch the `attestations.txt` and verify the signature. As we captured our attestations in PURL format we can also translate the attestations to docker format so we can also utilize sget to fetch the attestations themself.
-
-  ```shell
-  $ attestations="$(bin/fatt list --key cosign.pub -o docker ghcr.io/philips-labs/fatt:attestations)"
-  Fetching attestations from ghcr.io/philips-labs/fatt:attestations…
-
-  Verification for ghcr.io/philips-internal/attestations/slsa-workflow-examples/awesome-node-cli --
-  The following checks were performed on each of these signatures:
-    - The cosign claims were validated
-    - The signatures were verified against the specified public key
-
-  $ while read -r a ; do sget "$a" ; done <<< "$attestations"
-  {
-    "SPDXID": "SPDXRef-DOCUMENT",
-    "name": "ghcr.io/philips-labs/slsa-provenance-v0.7.2",
-    "spdxVersion": "SPDX-2.2",
-    "creationInfo": {
-      "created": "2022-02-25T13:01:35.3837117Z",
-      "creators": [
-        "Organization: Anchore, Inc",
-        "Tool: syft-0.38.0"
-      ],
-      "licenseListVersion": "3.16"
-    },
-    …
-  ```
-
-</details>
+Generating attestations.txt based on uploaded attestations…
+Uploading file from [attestations.txt] to [ghcr.io/philips-labs/fatt-attestations-example:v0.1.0.discovery] with media type [text/plain]
+File [attestations.txt] is available directly at [ghcr.io/v2/philips-labs/fatt-attestations-example/blobs/sha256:2106cfd71501952197e00e1099b515fbcbe4dd852c7bf2bd4a87fa58d3bae0d7]
+$ cosign sign --key cosign.key ghcr.io/philips-labs/fatt-attestations-example:v0.1.0.sbom
+$ cosign sign --key cosign.key ghcr.io/philips-labs/fatt-attestations-example:v0.1.0.provenance
+$ cosign sign --key cosign.key ghcr.io/philips-labs/fatt-attestations-example:v0.1.0.discover
+$ fatt list "ghcr.io/philips-labs/fatt-attestations-example:v0.1.0.discovery" > attestations.txt
+Fetching attestations from ghcr.io/philips-labs/fatt-attestations-example@sha256:2106cfd71501952197e00e1099b515fbcbe4dd852c7bf2bd4a87fa58d3bae0d7…
+$ cat attestations.txt
+pkg:oci/philips-labs/fatt-attestations-example@sha256:d17ece80fca09d53d5d23c54900697870fa1dc2c9161097c22d59b3775b88cc0?repository_url=ghcr.io%2Fphilips-labs%2Ffatt-attestations-example&tag=v0.1.0.sbom
+pkg:oci/philips-labs/fatt-attestations-example@sha256:f25d28beea7c81af4160a32256831380d7173449cfc49dde70bcca1b697f9c7e?repository_url=ghcr.io%2Fphilips-labs%2Ffatt-attestations-example&tag=v0.1.0.provenance
+```
 
 [purl]: https://github.com/package-url/purl-spec "A minimal specification and implementation of purl aka. a Package 'mostly universal' URL."
