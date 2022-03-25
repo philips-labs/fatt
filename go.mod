@@ -3,15 +3,11 @@ module github.com/philips-labs/fatt
 go 1.17
 
 require (
-	github.com/package-url/packageurl-go v0.1.0
-	github.com/spf13/cobra v1.4.0
-)
-
-require github.com/sigstore/cosign v1.6.0
-
-require (
 	github.com/antonmedv/expr v1.9.0
 	github.com/google/go-containerregistry v0.8.1-0.20220209165246-a44adc326839
+	github.com/package-url/packageurl-go v0.1.0
+	github.com/sigstore/cosign v1.6.0
+	github.com/spf13/cobra v1.4.0
 	github.com/stretchr/testify v1.7.1
 )
 
