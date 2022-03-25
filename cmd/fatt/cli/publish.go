@@ -81,12 +81,9 @@ func NewPublishCommand() *cobra.Command {
 				if err != nil {
 					return err
 				}
-				fmt.Fprintf(os.Stderr, "cosign sign --key %s %s\n", po.KeyRef, r.OCIRef)
 
 				purls[i] = r.PURL
 			}
-
-			discoveryOCIRef := fmt.Sprintf("%s:%s.%s", po.Repository, po.Version, "discover")
 
 			fmt.Fprintln(os.Stderr)
 			fmt.Fprintln(os.Stderr, "Generating attestations.txt based on uploaded attestations…")
@@ -95,7 +92,6 @@ func NewPublishCommand() *cobra.Command {
 				return err
 			}
 			fmt.Fprintln(os.Stderr)
-			fmt.Fprintf(os.Stderr, "cosign sign --key %s %s\n", po.KeyRef, discoveryOCIRef)
 			return nil
 		},
 	}
