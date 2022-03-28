@@ -2,6 +2,7 @@ package options
 
 import (
 	"context"
+	"fmt"
 	"io"
 	"os"
 
@@ -11,7 +12,7 @@ import (
 	"github.com/philips-labs/fatt/pkg/attestation/discoverers/fs"
 	"github.com/philips-labs/fatt/pkg/attestation/discoverers/oci"
 	"github.com/philips-labs/fatt/pkg/attestation/resolvers/txt"
-	poci "github.com/philips-labs/fatt/pkg/oci"
+	"github.com/philips-labs/fatt/pkg/print"
 )
 
 // ListOptions commandline options for the list command
@@ -42,7 +43,10 @@ func (o *ListOptions) GetPrinter(w io.Writer) (attestation.Printer, error) {
 
 	switch o.OutputFormat {
 	case "docker":
-		p = poci.NewDockerPrinter(w)
+		fmt.Fprintln(os.Stderr, "output-format 'docker' is deprecated, please use output-format 'oci'")
+		p = print.NewDockerPrinter(w)
+	case "oci":
+		p = print.NewDockerPrinter(w)
 	default:
 		p = attestation.NewDefaultPrinter(w)
 	}

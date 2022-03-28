@@ -14,16 +14,16 @@ type FilteredEnv struct {
 
 // IsAttestationType indicates if a PURL has the given attestation type.
 func (a Attestation) IsAttestationType(t string) bool {
-	if attType, ok := a.PURL.Qualifiers.Map()["attestation_type"]; ok {
-		return strings.ToLower(attType) == t
+	if tag, ok := a.PURL.Qualifiers.Map()["tag"]; ok {
+		return strings.HasSuffix(tag, "."+t)
 	}
 	return false
 }
 
 // IsRegistry filters on a specific repository_url qualifier of the package.
 func (a Attestation) IsRegistry(registryURL string) bool {
-	if attType, ok := a.PURL.Qualifiers.Map()["repository_url"]; ok {
-		return strings.ToLower(attType) == registryURL
+	if repoURL, ok := a.PURL.Qualifiers.Map()["repository_url"]; ok {
+		return strings.HasPrefix(repoURL, registryURL+"/")
 	}
 	return false
 }
