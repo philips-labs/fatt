@@ -2,7 +2,7 @@
 
 Fatt is a small commandline utility that allows you to fetch attestations for your binaries. It will do so by looking at some locations in the code repository.
 
-> :warning: This project is currently nothing more than a POC.
+> :warning: This project is still underdoing development and may not be stable yet.
 
 `fatt` tries to find any [purl][] in your project by searching the given path recursively for `attestations.txt`. Within an `attestations.txt` you can describe where your project stores attestations using [purl][] format.
 
@@ -11,17 +11,23 @@ In addition `fatt` allows to fetch these attestations from an OCI registry. It a
 ## Fatt Usage
 
 ```bash
-$ ./bin/fatt list --help
-Lists all attestations
+$ ./bin/fatt --help
+Discover and resolve your attestations
 
 Usage:
-  fatt list <discovery-path> [flags]
+  fatt [command]
+
+Available Commands:
+  completion  Generate the autocompletion script for the specified shell
+  help        Help about any command
+  list        Lists all attestations
+  publish     Publishes given attestations to an OCI registry
+  version     Prints the fatt version
 
 Flags:
-  -f, --filter string          filter attestations using template expressions
-  -h, --help                   help for list
-      --key string             path to the public key file, URL, or KMS URI
-  -o, --output-format string   output format for the list (default "purl")
+  -h, --help   help for fatt
+
+Use "fatt [command] --help" for more information about a command.
 ```
 
 ### List filter options
@@ -60,10 +66,12 @@ $ tree .
 .
 ├── provenance.att
 └── sbom-spdx.json
+
 $ cosign upload blob -f provenance.att ghcr.io/philips-labs/fatt-attestations-example:v0.1.0.provenance
 $ cosign sign --key cosign.key ghcr.io/philips-labs/fatt-attestations-example:v0.1.0.provenance
 $ cosign upload blob -f sbom-spdx.json ghcr.io/philips-labs/fatt-attestations-example:v0.1.0.sbom
 $ cosign sign --key cosign.key ghcr.io/philips-labs/fatt-attestations-example:v0.1.0.sbom
+
 # Now you would manually fill out an attestations.txt using these image digests following this spec
 # https://github.com/package-url/purl-spec/blob/master/PURL-TYPES.rst#oci
 $ tree
@@ -71,19 +79,22 @@ $ tree
 ├── attestations.txt
 ├── provenance.att
 └── sbom-spdx.json
+
 $ cosign upload blob -f attestations.txt ghcr.io/philips-labs/fatt-attestations-example:v0.1.0.discover
 $ cosign sign --key cosign.key ghcr.io/philips-labs/fatt-attestations-example:v0.1.0.discover
 # Now we have the discovery file stored in an OCI registry we can look it up by digest
 $ fatt list --key cosign.pub ghcr.io/philips-labs/fatt-attestations-example:v0.1.0
 ```
 
-See below how `fatt publish` automates this whole flow for you. (:warning: NOTE that signing currently is not yet build in. #20)
+See below how `fatt publish` automates this whole flow for you.
+(:warning: NOTE that signing currently is not yet build in. [#20](https://github.com/philips-labs/fatt/issues/20))
 
 ```shell
 $ tree .
 .
 ├── provenance.att
 └── sbom-spdx.json
+
 $ fatt publish --repository ghcr.io/philips-labs/fatt-attestations-example --version v0.1.0 sbom://sbom-spdx.json provenance://provenance.att
 Publishing attestations…
 Uploading file from [sbom-spdx.json] to [ghcr.io/philips-labs/fatt-attestations-example:v0.1.0.sbom] with media type [text/plain]
@@ -99,6 +110,7 @@ $ cosign sign --key cosign.key ghcr.io/philips-labs/fatt-attestations-example:v0
 $ cosign sign --key cosign.key ghcr.io/philips-labs/fatt-attestations-example:v0.1.0.discover
 $ fatt list "ghcr.io/philips-labs/fatt-attestations-example:v0.1.0.discovery" > attestations.txt
 Fetching attestations from ghcr.io/philips-labs/fatt-attestations-example@sha256:2106cfd71501952197e00e1099b515fbcbe4dd852c7bf2bd4a87fa58d3bae0d7…
+
 $ cat attestations.txt
 pkg:oci/philips-labs/fatt-attestations-example@sha256:d17ece80fca09d53d5d23c54900697870fa1dc2c9161097c22d59b3775b88cc0?repository_url=ghcr.io%2Fphilips-labs%2Ffatt-attestations-example&tag=v0.1.0.sbom
 pkg:oci/philips-labs/fatt-attestations-example@sha256:f25d28beea7c81af4160a32256831380d7173449cfc49dde70bcca1b697f9c7e?repository_url=ghcr.io%2Fphilips-labs%2Ffatt-attestations-example&tag=v0.1.0.provenance
