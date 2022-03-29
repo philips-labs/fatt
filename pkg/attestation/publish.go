@@ -76,13 +76,13 @@ func ParseFileRef(fileRef string) (File, error) {
 }
 
 // Publish publishes the attestations to an oci repository
-func Publish(ctx context.Context, repository, version string, att cremote.File) (*PublishResult, error) {
+func Publish(ctx context.Context, repository, tagPrefix string, version string, att cremote.File) (*PublishResult, error) {
 	t, err := getType(att.String())
 	if err != nil {
 		return nil, err
 	}
 
-	ociRef := fmt.Sprintf("%s:%s.%s", repository, version, t)
+	ociRef := fmt.Sprintf("%s:%s-%s.%s", repository, tagPrefix, version, t)
 
 	ref, err := name.ParseReference(ociRef)
 	if err != nil {

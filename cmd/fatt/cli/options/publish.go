@@ -10,6 +10,7 @@ type PublishOptions struct {
 	Version      string
 	Repository   string
 	Attestations []string
+	TagPrefix    string
 }
 
 // NewPublishOptions initializes the ListOptions object
@@ -23,5 +24,6 @@ var _ CommandFlagger = (*PublishOptions)(nil)
 func (o *PublishOptions) AddFlags(cmd *cobra.Command) {
 	cmd.PersistentFlags().StringVarP(&o.Version, "version", "", "", "the version to publish the attestations for.")
 	cmd.PersistentFlags().StringVarP(&o.Repository, "repository", "", "", "the oci repository to publish the attestation in.")
+	cmd.PersistentFlags().StringVarP(&o.TagPrefix, "tag-prefix", "", "", "the tag prefix that is used to store various attestations in a single registry")
 	o.OCIOptions.AddFlags(cmd)
 }
