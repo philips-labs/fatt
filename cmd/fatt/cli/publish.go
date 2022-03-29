@@ -77,7 +77,7 @@ func NewPublishCommand() *cobra.Command {
 				if err != nil {
 					return err
 				}
-				r, err := attestation.Publish(ctx, po.Repository, po.Version, att)
+				r, err := attestation.Publish(ctx, po.Repository, po.TagPrefix, po.Version, att)
 				if err != nil {
 					return err
 				}
@@ -87,7 +87,7 @@ func NewPublishCommand() *cobra.Command {
 
 			fmt.Fprintln(os.Stderr)
 			fmt.Fprintln(os.Stderr, "Generating attestations.txt based on uploaded attestations…")
-			_, err := attestation.Publish(ctx, po.Repository, po.Version, purls)
+			_, err := attestation.Publish(ctx, po.Repository, po.TagPrefix, po.Version, purls)
 			if err != nil {
 				return err
 			}
