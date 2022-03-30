@@ -8,7 +8,7 @@ inputs:
   fatt-release:
     description: 'fatt release version to be installed'
     required: false
-    default: 'v0.2.0-rc2'
+    default: 'v0.3.0'
   install-dir:
     description: 'Where to install the fatt binary'
     required: false
