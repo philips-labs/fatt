@@ -22,7 +22,9 @@ runs:
         VERSION: ${{ inputs.fatt-release }}
         INSTALL_PATH: ${{ inputs.install-dir }}
     - if: ${{ runner.os == 'Linux' || runner.os == 'macOS' }}
-      run:  echo "${{ inputs.install-dir }}" >> $GITHUB_PATH
+      run: |
+        echo "${{ inputs.install-dir }}" >> $GITHUB_PATH
+        echo "binary installed at $(command -v fatt)"
       shell: bash
     - if: ${{ runner.os == 'Windows' }}
       run:  echo "${{ inputs.install-dir }}" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
