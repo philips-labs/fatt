@@ -123,7 +123,7 @@ func TestPublish(t *testing.T) {
 			repo:           "",
 			version:        "",
 			tagPrefix:      "",
-			expectedErrMsg: "repository parameter is required",
+			expectedErrMsg: "repository is required",
 		},
 		{
 			name:           "without version but with tag-prefix parameter",
@@ -138,7 +138,7 @@ func TestPublish(t *testing.T) {
 			repo:           "ghcr.io/philips-labs/fatt-attestations-example",
 			version:        "v0.1.0",
 			tagPrefix:      "test-application",
-			expectedErrMsg: "attestation file parameter is required",
+			expectedErrMsg: "attestation file is required",
 		},
 		{
 			name:           "with invalid file parameter",

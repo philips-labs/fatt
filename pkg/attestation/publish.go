@@ -78,11 +78,11 @@ func ParseFileRef(fileRef string) (File, error) {
 // Publish publishes the attestations to an oci repository
 func Publish(ctx context.Context, repository, tagPrefix string, version string, att cremote.File) (*PublishResult, error) {
 	if strings.TrimSpace(repository) == "" {
-		return nil, errors.New("repository parameter is required")
+		return nil, errors.New("repository is required")
 	}
 
 	if att == nil {
-		return nil, errors.New("attestation file parameter is required")
+		return nil, errors.New("attestation file is required")
 	}
 
 	t, err := getType(att.String())
