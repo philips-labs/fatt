@@ -42,7 +42,6 @@ func (f mockFile) String() string {
 var _ cremote.File = mockFile{}
 
 func TestBuildOciRef(t *testing.T) {
-
 	testCases := []struct {
 		name           string
 		repo           string
