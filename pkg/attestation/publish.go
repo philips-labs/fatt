@@ -25,7 +25,7 @@ type File interface {
 
 // PublishResult captures the result after publishing the attestations
 type PublishResult struct {
-	OCIRef string
+	OCIRef name.Reference
 	PURL   *packageurl.PackageURL
 }
 
@@ -77,14 +77,20 @@ func ParseFileRef(fileRef string) (File, error) {
 
 // Publish publishes the attestations to an oci repository
 func Publish(ctx context.Context, repository, tagPrefix string, version string, att cremote.File) (*PublishResult, error) {
+	if strings.TrimSpace(repository) == "" {
+		return nil, errors.New("repository parameter is required")
+	}
+
+	if att == nil {
+		return nil, errors.New("attestation file parameter is required")
+	}
+
 	t, err := getType(att.String())
 	if err != nil {
 		return nil, err
 	}
 
-	ociRef := fmt.Sprintf("%s:%s-%s.%s", repository, tagPrefix, version, t)
-
-	ref, err := name.ParseReference(ociRef)
+	ref, err := buildOciRef(repository, tagPrefix, version, t)
 	if err != nil {
 		return nil, err
 	}
@@ -100,9 +106,28 @@ func Publish(ctx context.Context, repository, tagPrefix string, version string, 
 	}
 
 	return &PublishResult{
-		OCIRef: ociRef,
+		OCIRef: ref,
 		PURL:   purl,
 	}, nil
+}
+
+// buildOciRef builds a reference based on the OCI specification
+func buildOciRef(repository string, tagPrefix string, version string, attType string) (name.Reference, error) {
+	if len(version) == 0 {
+		return nil, errors.New("version is required")
+	}
+
+	if len(attType) == 0 {
+		return nil, errors.New("attestation type is required")
+	}
+
+	var ociRef string
+	if len(tagPrefix) != 0 {
+		ociRef = fmt.Sprintf("%s:%s-%s.%s", repository, tagPrefix, version, attType)
+	} else {
+		ociRef = fmt.Sprintf("%s:%s.%s", repository, version, attType)
+	}
+	return name.ParseReference(ociRef)
 }
 
 func getType(att string) (string, error) {
