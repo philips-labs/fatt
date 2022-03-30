@@ -106,8 +106,3 @@ container-digest: ## retrieves the container digest from the given tag
 container-tags: ## retrieves the container tags applied to the image with a given digest
 	@:$(call check_defined, CONTAINER_DIGEST)
 	@docker inspect ghcr.io/philips-labs/fatt@$(CONTAINER_DIGEST) --format '{{ join .RepoTags "\n" }}' | sed 's/.*://' | awk '!_[$$0]++'
-
-.PHONY: container-repos
-container-repos: ## retrieves the container tags applied to the image with a given digest
-	@:$(call check_defined, CONTAINER_DIGEST)
-	@docker inspect ghcr.io/philips-labs/fatt@$(CONTAINER_DIGEST) --format '{{ join .RepoTags "\n" }}' | sed 's/:.*//' | awk '!_[$$0]++'
