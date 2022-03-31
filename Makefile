@@ -96,3 +96,13 @@ release: $(GO_PATH)/bin/goreleaser ## creates a release using goreleaser
 .PHONY: release-vars
 release-vars: ## print the release variables for goreleaser
 	@echo export LDFLAGS=\"$(LDFLAGS)\"
+
+.PHONY: container-digest
+container-digest: ## retrieves the container digest from the given tag
+	@:$(call check_defined, GITHUB_REF)
+	@docker inspect $(GHCR_REPO):$(subst refs/tags/,,$(GITHUB_REF)) --format '{{ index .RepoDigests 0 }}' | cut -d '@' -f 2
+
+.PHONY: container-tags
+container-tags: ## retrieves the container tags applied to the image with a given digest
+	@:$(call check_defined, CONTAINER_DIGEST)
+	@docker inspect ghcr.io/philips-labs/fatt@$(CONTAINER_DIGEST) --format '{{ join .RepoTags "\n" }}' | sed 's/.*://' | awk '!_[$$0]++'
