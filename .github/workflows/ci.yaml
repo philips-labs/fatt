@@ -183,10 +183,9 @@ jobs:
             cosign verify-attestation -o verified-sbom-spdx.json --key cosign.pub ${REPO}:${t}
           done
 
-      - name: Clean up & Logout from Container registries
+      - name: Clean up signing keys
         if: ${{ always() }}
         run: |
-          docker logout ghcr.io
           rm -f cosign.key
 
   provenance:
@@ -274,8 +273,7 @@ jobs:
           echo '${{ secrets.COSIGN_PUBLIC_KEY }}' > cosign.pub
           cosign verify-attestation --key cosign.pub ${REPO}@${{ needs.release.outputs.container_digest }}
 
-      - name: Logout from Container registries
+      - name: Cleanup signing keys
         if: ${{ always() }}
         run: |
-          docker logout ghcr.io
           rm -f cosign.key
