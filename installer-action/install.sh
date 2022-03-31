@@ -17,9 +17,9 @@ set -e
 GITHUB_API=${GITHUB_API:-'https://api.github.com'}
 
 # default to relative path if INSTALL_PATH is not set
-INSTALL_PATH=${INSTALL_PATH:-./.fatt/bin}
+# INSTALL_PATH=${INSTALL_PATH:-./.fatt/bin}
 mkdir -p "${INSTALL_PATH}"
-INSTALL_PATH="$(realpath "${INSTALL_PATH}")"
+# INSTALL_PATH="$(realpath "${INSTALL_PATH}")"
 
 VERSION="${VERSION:-v0.2.0-rc}"
 RELEASE="https://github.com/philips-labs/fatt/releases/download/${VERSION}"
@@ -81,7 +81,7 @@ DOWNLOAD="${RELEASE}/${ARCHIVE}"
 log_info "Installing ${BINARY} (${OS}/${ARCH}) at ${INSTALL_PATH}"
 
 trap "popd >/dev/null" EXIT
-pushd "$INSTALL_PATH" >/dev/null || exit
+pushd "${INSTALL_PATH}" || exit
 
 download "${ARCHIVE}" "${DOWNLOAD}"
 
