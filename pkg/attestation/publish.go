@@ -154,5 +154,5 @@ func uploadBlob(ctx context.Context, file cremote.File, ref name.Reference) (nam
 		remote.WithContext(ctx),
 	}
 
-	return cremote.UploadFiles(ref, []cremote.File{file}, mt, opts...)
+	return cremote.UploadFiles(ref, []cremote.File{file}, nil, mt, opts...)
 }

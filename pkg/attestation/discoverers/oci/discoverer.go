@@ -92,7 +92,10 @@ func (r *Discoverer) Discover(blobRef string) (io.Reader, error) {
 	}
 
 	if co.SigVerifier != nil || options.EnableExperimental() {
-		co.RootCerts = fulcio.GetRoots()
+		co.RootCerts, err = fulcio.GetRoots()
+		if err != nil {
+			return nil, err
+		}
 
 		fmt.Fprintf(os.Stderr, "Verifying signature for %s…\n", ref)
 		_, _, err := cosign.VerifyImageSignatures(r.context, ref, co)
