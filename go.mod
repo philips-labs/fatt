@@ -7,7 +7,7 @@ require (
 	github.com/google/go-containerregistry v0.11.0
 	github.com/package-url/packageurl-go v0.1.0
 	github.com/sigstore/cosign v1.13.0
-	github.com/spf13/cobra v1.5.0
+	github.com/spf13/cobra v1.6.0
 	github.com/stretchr/testify v1.8.0
 )
 
@@ -123,7 +123,7 @@ require (
 	github.com/hashicorp/hcl v1.0.0 // indirect
 	github.com/imdario/mergo v0.3.12 // indirect
 	github.com/in-toto/in-toto-golang v0.3.4-0.20220709202702-fa494aaa0add // indirect
-	github.com/inconshreveable/mousetrap v1.0.0 // indirect
+	github.com/inconshreveable/mousetrap v1.0.1 // indirect
 	github.com/jedisct1/go-minisign v0.0.0-20211028175153-1c139d1cc84b // indirect
 	github.com/jhump/protoreflect v1.12.0 // indirect
 	github.com/jmespath/go-jmespath v0.4.0 // indirect
