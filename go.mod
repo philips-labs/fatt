@@ -3,7 +3,7 @@ module github.com/philips-labs/fatt
 go 1.18
 
 require (
-	github.com/antonmedv/expr v1.9.0
+	github.com/antonmedv/expr v1.12.2
 	github.com/google/go-containerregistry v0.13.0
 	github.com/package-url/packageurl-go v0.1.0
 	github.com/sigstore/cosign v1.13.1
