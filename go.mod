@@ -5,7 +5,7 @@ go 1.18
 require (
 	github.com/antonmedv/expr v1.9.0
 	github.com/google/go-containerregistry v0.15.2
-	github.com/package-url/packageurl-go v0.1.0
+	github.com/package-url/packageurl-go v0.1.1
 	github.com/sigstore/cosign v1.13.1
 	github.com/spf13/cobra v1.7.0
 	github.com/stretchr/testify v1.8.4
