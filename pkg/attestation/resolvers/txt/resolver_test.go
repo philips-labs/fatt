@@ -30,9 +30,9 @@ pkg:nuget/philips-labs/fatt@sha256:823413cc65b2c82c2baa3391890abb8ab741e87baff3b
 	assert.Equal("SBOM", atts[4].Type.String())
 
 	purlsFile = `pkg:docker/philips-labs/fatt@sha256:6cc65b2c82c2baa3391890abb8ab741efbcbc87baff3b06d5797afacb314ddd9?repository_url=ghcr.io&attestation_type=sbom
-	ghcr.io/philips-labs/fatt@sha256:6cc65b2c82c2baa3391890abb8ab741efbcbc87baff3b06d5797afacb314ddd9`
+ghcr.io/philips-labs/fatt@sha256:6cc65b2c82c2baa3391890abb8ab741efbcbc87baff3b06d5797afacb314ddd9`
 	atts, err = r.Resolve(strings.NewReader(purlsFile))
 	assert.Error(err)
-	assert.EqualError(err, "scheme is missing")
+	assert.EqualError(err, "purl scheme is not \"pkg\": \"\"")
 	assert.Len(atts, 0)
 }
