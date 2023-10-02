@@ -6,8 +6,9 @@ import (
 	"github.com/package-url/packageurl-go"
 )
 
-//go:generate stringer -type=Type
 // Type enumeration of attestation types
+//
+//go:generate stringer -type=Type
 type Type int
 
 const (
