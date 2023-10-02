@@ -5,7 +5,7 @@ import (
 	"testing"
 
 	v1 "github.com/google/go-containerregistry/pkg/v1"
-	cremote "github.com/sigstore/cosign/pkg/cosign/remote"
+	cremote "github.com/sigstore/cosign/v2/pkg/cosign/remote"
 	"github.com/stretchr/testify/assert"
 )
 

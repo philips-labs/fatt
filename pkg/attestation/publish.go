@@ -12,7 +12,7 @@ import (
 	v1 "github.com/google/go-containerregistry/pkg/v1"
 	"github.com/google/go-containerregistry/pkg/v1/remote"
 	"github.com/package-url/packageurl-go"
-	cremote "github.com/sigstore/cosign/pkg/cosign/remote"
+	cremote "github.com/sigstore/cosign/v2/pkg/cosign/remote"
 
 	"github.com/philips-labs/fatt/pkg/oci"
 )
