@@ -7,7 +7,7 @@ require (
 	github.com/google/go-containerregistry v0.16.1
 	github.com/package-url/packageurl-go v0.1.2
 	github.com/sigstore/cosign/v2 v2.2.0
-	github.com/spf13/cobra v1.7.0
+	github.com/spf13/cobra v1.8.0
 	github.com/stretchr/testify v1.8.4
 )
 
