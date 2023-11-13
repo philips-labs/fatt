@@ -84,7 +84,7 @@ jobs:
       - name: Install cosign
         uses: sigstore/cosign-installer@v3.2.0
         with:
-          cosign-release: 'v2.2.0'
+          cosign-release: 'v2.2.1'
 
       - name: Install Syft
         uses: anchore/sbom-action/download-syft@v0.14.3
@@ -147,7 +147,7 @@ jobs:
       - name: Install cosign
         uses: sigstore/cosign-installer@v3.2.0
         with:
-          cosign-release: 'v2.2.0'
+          cosign-release: 'v2.2.1'
 
       - name: Install Syft
         uses: anchore/sbom-action/download-syft@v0.14.3
@@ -199,7 +199,7 @@ jobs:
       - name: Install cosign
         uses: sigstore/cosign-installer@v3.2.0
         with:
-          cosign-release: 'v2.2.0'
+          cosign-release: 'v2.2.1'
 
       - name: Sign provenance
         run: |
@@ -231,7 +231,7 @@ jobs:
       - name: Install cosign
         uses: sigstore/cosign-installer@v3.2.0
         with:
-          cosign-release: 'v2.2.0'
+          cosign-release: 'v2.2.1'
 
       - name: Generate provenance for ${REPO}
         uses: philips-labs/slsa-provenance-action@v0.8.0
