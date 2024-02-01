@@ -4,7 +4,7 @@ go 1.21
 
 require (
 	github.com/antonmedv/expr v1.15.5
-	github.com/google/go-containerregistry v0.18.0
+	github.com/google/go-containerregistry v0.19.0
 	github.com/package-url/packageurl-go v0.1.2
 	github.com/sigstore/cosign/v2 v2.2.3
 	github.com/spf13/cobra v1.8.0
