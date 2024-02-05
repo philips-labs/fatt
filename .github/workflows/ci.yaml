@@ -82,7 +82,7 @@ jobs:
           check-latest: true
 
       - name: Install cosign
-        uses: sigstore/cosign-installer@v3.2.0
+        uses: sigstore/cosign-installer@v3.4.0
         with:
           cosign-release: 'v2.2.1'
 
@@ -145,7 +145,7 @@ jobs:
 
     steps:
       - name: Install cosign
-        uses: sigstore/cosign-installer@v3.2.0
+        uses: sigstore/cosign-installer@v3.4.0
         with:
           cosign-release: 'v2.2.1'
 
@@ -197,7 +197,7 @@ jobs:
           GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
 
       - name: Install cosign
-        uses: sigstore/cosign-installer@v3.2.0
+        uses: sigstore/cosign-installer@v3.4.0
         with:
           cosign-release: 'v2.2.1'
 
@@ -229,7 +229,7 @@ jobs:
 
     steps:
       - name: Install cosign
-        uses: sigstore/cosign-installer@v3.2.0
+        uses: sigstore/cosign-installer@v3.4.0
         with:
           cosign-release: 'v2.2.1'
 
