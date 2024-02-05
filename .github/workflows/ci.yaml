@@ -87,7 +87,7 @@ jobs:
           cosign-release: 'v2.2.1'
 
       - name: Install Syft
-        uses: anchore/sbom-action/download-syft@v0.15.2
+        uses: anchore/sbom-action/download-syft@v0.15.8
 
       - name: Login to ghcr.io
         uses: docker/login-action@v3.0.0
@@ -150,7 +150,7 @@ jobs:
           cosign-release: 'v2.2.1'
 
       - name: Install Syft
-        uses: anchore/sbom-action/download-syft@v0.15.2
+        uses: anchore/sbom-action/download-syft@v0.15.8
 
       - name: Login to ghcr.io
         uses: docker/login-action@v3.0.0
