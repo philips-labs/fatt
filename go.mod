@@ -8,7 +8,7 @@ require (
 	github.com/package-url/packageurl-go v0.1.2
 	github.com/sigstore/cosign/v2 v2.2.3
 	github.com/spf13/cobra v1.8.0
-	github.com/stretchr/testify v1.8.4
+	github.com/stretchr/testify v1.9.0
 )
 
 require (
