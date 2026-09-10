@@ -6,7 +6,7 @@ require (
 	github.com/antonmedv/expr v1.15.5
 	github.com/google/go-containerregistry v0.22.0
 	github.com/package-url/packageurl-go v0.1.7
-	github.com/sigstore/cosign/v2 v2.6.2
+	github.com/sigstore/cosign/v2 v2.6.5
 	github.com/spf13/cobra v1.10.2
 	github.com/stretchr/testify v1.12.1
 )
