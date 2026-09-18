@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/antonmedv/expr"
+	"github.com/expr-lang/expr"
 )
 
 // FilteredEnv holds the context to apply filter expressions.
