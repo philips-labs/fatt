@@ -33,6 +33,6 @@ pkg:nuget/philips-labs/fatt@sha256:823413cc65b2c82c2baa3391890abb8ab741e87baff3b
 ghcr.io/philips-labs/fatt@sha256:6cc65b2c82c2baa3391890abb8ab741efbcbc87baff3b06d5797afacb314ddd9`
 	atts, err = r.Resolve(strings.NewReader(purlsFile))
 	assert.Error(err)
-	assert.EqualError(err, "purl scheme is not \"pkg\": \"\"")
+	assert.EqualError(err, "purl scheme is not \"pkg\": \"ghcr.io/philips-labs/fatt@sha256:6cc65b2c82c2baa3391890abb8ab741efbcbc87baff3b06d5797afacb314ddd9\"")
 	assert.Len(atts, 0)
 }
