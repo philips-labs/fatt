@@ -1,6 +1,6 @@
 module github.com/philips-labs/fatt
 
-go 1.25.7
+go 1.27
 
 require (
 	github.com/antonmedv/expr v1.15.5

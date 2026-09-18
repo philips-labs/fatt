@@ -44,7 +44,7 @@ func Reduce(atts []Attestation, filter string) ([]Attestation, error) {
 	}
 
 	var filteredResults []Attestation
-	for _, a := range result.([]interface{}) {
+	for _, a := range result.([]any) {
 		filteredResults = append(filteredResults, a.(Attestation))
 	}
 	return filteredResults, nil
