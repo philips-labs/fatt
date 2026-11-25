@@ -11,7 +11,7 @@ replace github.com/ThalesIgnite/crypto11 => github.com/eclipse-keypont/crypto11 
 replace k8s.io/kube-openapi => k8s.io/kube-openapi v0.0.0-20260317180543-43fb72c5454a
 
 require (
-	github.com/expr-lang/expr v1.17.8
+	github.com/expr-lang/expr v1.18.0
 	github.com/google/go-containerregistry v0.22.1
 	github.com/package-url/packageurl-go v0.1.7
 	github.com/sigstore/cosign/v3 v3.1.3
